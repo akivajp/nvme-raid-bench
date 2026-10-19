@@ -1,0 +1,16 @@
+# NVMe RAID0 効果測定のための一時的な許可（検証が終わったら削除する）
+# デバイス名 (nvme0n1 / nvme2n1) は計測する未使用ドライブに合わせて書き換える
+# 注意: fio を root で任意の引数付きで実行できるため、実質的に root 権限に相当する。常設しないこと
+Cmnd_Alias NVME_BENCH = /usr/bin/fio *, \
+                        /usr/sbin/nvme *, \
+                        /usr/sbin/smartctl *, \
+                        /usr/sbin/sysctl -w vm.drop_caches\=3, \
+                        /usr/sbin/blkdiscard -f /dev/nvme0n1, \
+                        /usr/sbin/blkdiscard -f /dev/nvme2n1, \
+                        /usr/sbin/wipefs -a /dev/nvme0n1, \
+                        /usr/sbin/wipefs -a /dev/nvme2n1, \
+                        /usr/bin/btrfs filesystem show, \
+                        /usr/bin/btrfs filesystem usage *, \
+                        /usr/bin/btrfs filesystem df *, \
+                        /usr/bin/btrfs device stats *
+akiva ALL=(root) NOPASSWD: NVME_BENCH

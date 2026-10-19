@@ -1,0 +1,81 @@
+# nvme-bench の計測条件。
+# CLI の --runtime / --repeats / --size などは、この defaults を上書きする。
+
+defaults:
+  ioengine: io_uring   # Linux の非同期 I/O。libaio より CPU 負荷が低い
+  direct: 1            # O_DIRECT でページキャッシュを迂回する
+  runtime: 20          # 1回の計測時間 (秒)。time_based の計測で使う
+  ramp_time: 3         # 計測を始める前の助走 (秒)。この間の結果は集計に入らない
+  repeats: 3           # 同じ計測を繰り返す回数。結果は中央値で比較する
+  size: 64g            # 計測に使う範囲 (ファイルのサイズ / 生デバイスの先頭からの範囲)
+  cooldown: 5          # 計測と計測の間の待ち時間 (秒)。温度や SLC キャッシュの状態の持ち越しを減らす
+  temp_interval: 1.0   # 温度を記録する間隔 (秒)
+
+# 計測対象。kind: file は btrfs 上のファイル、kind: device は生デバイス (書き込みで中身が消える)
+targets:
+  fs:
+    kind: file
+    # snapper の対象外になるよう、専用の入れ子サブボリュームに置く (run 時に無ければ作成する)
+    path: ~/nvme-bench-scratch/fio-testfile
+  nvme0:               # チップセット経由 (Gen4 x4、上流は他のデバイスと共有)
+    kind: device
+    path: /dev/nvme0n1
+  nvme2:               # CPU 直結だが USB4 とレーンを分け合っている (Gen4 x2)
+    kind: device
+    path: /dev/nvme2n1
+  gguf:                # 実際の利用に近い計測 (モデルファイルの読み出し) に使う既存ファイル
+    kind: file
+    path: ~/llm-lab/gguf/Qwen3.8-Flash-Next-GSQ-RCO/IQ3_S/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf
+    readonly: true
+
+# 計測の組み合わせ。各 test の rw/bs/iodepth/numjobs は fio のオプションそのまま。
+# 読み込みを先に、書き込みを後に並べる (btrfs は CoW のため、ランダム書き込みでファイルが断片化し、後の読み込みに影響する)
+suites:
+  # CrystalDiskMark の既定4種 + 高並列のシーケンシャル
+  cdm:
+    precondition: true   # 生デバイスは計測範囲を先に書き埋める (未書き込みの領域は NAND を読まずにゼロが返るため)
+    tests:
+      - {name: SEQ1M_Q8T1_read,   rw: read,      bs: 1m, iodepth: 8,  numjobs: 1}
+      - {name: SEQ1M_Q1T1_read,   rw: read,      bs: 1m, iodepth: 1,  numjobs: 1}
+      - {name: RND4K_Q32T1_read,  rw: randread,  bs: 4k, iodepth: 32, numjobs: 1}
+      - {name: RND4K_Q1T1_read,   rw: randread,  bs: 4k, iodepth: 1,  numjobs: 1}
+      - {name: SEQ1M_Q32T4_read,  rw: read,      bs: 1m, iodepth: 32, numjobs: 4}
+      - {name: RND4K_Q32T8_read,  rw: randread,  bs: 4k, iodepth: 32, numjobs: 8}
+      - {name: SEQ1M_Q8T1_write,  rw: write,     bs: 1m, iodepth: 8,  numjobs: 1, runtime: 10}
+      - {name: SEQ1M_Q1T1_write,  rw: write,     bs: 1m, iodepth: 1,  numjobs: 1, runtime: 10}
+      - {name: RND4K_Q32T1_write, rw: randwrite, bs: 4k, iodepth: 32, numjobs: 1, runtime: 10}
+      - {name: RND4K_Q1T1_write,  rw: randwrite, bs: 4k, iodepth: 1,  numjobs: 1, runtime: 10}
+      - {name: SEQ1M_Q32T4_write, rw: write,     bs: 1m, iodepth: 32, numjobs: 4, runtime: 10}
+      - {name: RND4K_Q32T8_write, rw: randwrite, bs: 4k, iodepth: 32, numjobs: 8, runtime: 10}
+
+  # 書き込みは 10 秒に短縮している。シーケンシャル書き込みは 1 回で数十 GB に達し、
+  # SLC キャッシュの残量で結果が変わりやすくなるため (使い切った後の速度は sustained で別に測る)
+
+  # 複数の対象を1回の fio で同時に動かし、合計の帯域を見る (RAID0 で出せる上限の見積もり)
+  concurrent:
+    precondition: true
+    concurrent: true
+    tests:
+      - {name: SEQ1M_Q32T4_read,  rw: read,  bs: 1m, iodepth: 32, numjobs: 4}
+      - {name: SEQ1M_Q32T4_write, rw: write, bs: 1m, iodepth: 32, numjobs: 4, runtime: 10}
+
+  # SLC キャッシュを使い切った後の書き込み速度。1秒ごとの帯域を記録する
+  sustained:
+    pre_discard: true    # 生デバイスを先に TRIM し、SLC キャッシュが最大の状態から始める
+    pre_idle: 60         # TRIM 後の待ち時間 (秒)。コントローラの後処理を待つ
+    tests:
+      - {name: SEQ1M_Q8T1_write_300g, rw: write, bs: 1m, iodepth: 8, numjobs: 1,
+         size: 300g, time_based: false, repeats: 1, bw_log: true}
+
+  # モデルファイルの読み込みに近い計測: ページキャッシュを捨ててから、ファイル全体を1回読む
+  coldread:
+    tests:
+      # llama.cpp の --no-mmap 相当 (read() で順に読む)
+      - {name: buffered_read_1M, rw: read, bs: 1m, iodepth: 1, numjobs: 1,
+         ioengine: psync, direct: 0, size: full, time_based: false, drop_caches: true}
+      # llama.cpp の既定 (mmap して触れたページを読む)
+      - {name: mmap_read_1M, rw: read, bs: 1m, iodepth: 1, numjobs: 1,
+         ioengine: mmap, direct: 0, size: full, time_based: false, drop_caches: true}
+      # O_DIRECT で並列に読む (ストレージ側の上限)
+      - {name: direct_read_Q32T4, rw: read, bs: 1m, iodepth: 32, numjobs: 4,
+         size: full, time_based: false, drop_caches: true}

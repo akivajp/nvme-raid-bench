@@ -1,0 +1,26 @@
+[project]
+name = "nvme-raid-bench"
+version = "0.1.0"
+description = "NVMe SSD 単体と btrfs RAID0 の I/O 性能を fio で計測・比較するツール"
+readme = "README.ja.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml>=6.0",
+    "rich>=14.0",
+]
+
+[project.scripts]
+nvme-bench = "nvme_raid_bench.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.3"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nvme_raid_bench"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
