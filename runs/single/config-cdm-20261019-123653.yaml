@@ -1,0 +1,96 @@
+argv:
+- /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/.venv/bin/nvme-bench
+- run
+- --label
+- single
+- --suite
+- cdm
+- --target
+- nvme0
+- --allow-destroy
+- /dev/nvme0n1
+- --allow-destroy
+- /dev/nvme2n1
+defaults:
+  ioengine: io_uring
+  direct: 1
+  runtime: 20
+  ramp_time: 3
+  repeats: 3
+  size: 64g
+  cooldown: 5
+  temp_interval: 1.0
+suite:
+  cdm:
+    precondition: true
+    tests:
+    - name: SEQ1M_Q8T1_read
+      rw: read
+      bs: 1m
+      iodepth: 8
+      numjobs: 1
+    - name: SEQ1M_Q1T1_read
+      rw: read
+      bs: 1m
+      iodepth: 1
+      numjobs: 1
+    - name: RND4K_Q32T1_read
+      rw: randread
+      bs: 4k
+      iodepth: 32
+      numjobs: 1
+    - name: RND4K_Q1T1_read
+      rw: randread
+      bs: 4k
+      iodepth: 1
+      numjobs: 1
+    - name: SEQ1M_Q32T4_read
+      rw: read
+      bs: 1m
+      iodepth: 32
+      numjobs: 4
+    - name: RND4K_Q32T8_read
+      rw: randread
+      bs: 4k
+      iodepth: 32
+      numjobs: 8
+    - name: SEQ1M_Q8T1_write
+      rw: write
+      bs: 1m
+      iodepth: 8
+      numjobs: 1
+      runtime: 10
+    - name: SEQ1M_Q1T1_write
+      rw: write
+      bs: 1m
+      iodepth: 1
+      numjobs: 1
+      runtime: 10
+    - name: RND4K_Q32T1_write
+      rw: randwrite
+      bs: 4k
+      iodepth: 32
+      numjobs: 1
+      runtime: 10
+    - name: RND4K_Q1T1_write
+      rw: randwrite
+      bs: 4k
+      iodepth: 1
+      numjobs: 1
+      runtime: 10
+    - name: SEQ1M_Q32T4_write
+      rw: write
+      bs: 1m
+      iodepth: 32
+      numjobs: 4
+      runtime: 10
+    - name: RND4K_Q32T8_write
+      rw: randwrite
+      bs: 4k
+      iodepth: 32
+      numjobs: 8
+      runtime: 10
+targets:
+  nvme0:
+    kind: device
+    path: /dev/nvme0n1

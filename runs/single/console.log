@@ -1,0 +1,608 @@
+[10/19/26 12:21:56] INFO     設定: suite=cdm 対象=['fs'] defaults={'ioengine':  
+                             'io_uring', 'direct': 1, 'runtime': 20,            
+                             'ramp_time': 3, 'repeats': 3, 'size': '64g',       
+                             'cooldown': 5, 'temp_interval': 1.0}               
+                    INFO     計測環境を記録します:                              
+                             /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/
+                             runs/single/env.md                                 
+                    INFO     計測用ファイルを作成します:                        
+                             /home/akiva/nvme-bench-scratch/fio-testfile (64.0  
+                             GiB)                                               
+[10/19/26 12:22:56] INFO     fs SEQ1M_Q8T1_read r1: 7,012 MB/s, 6,687 IOPS, 平均
+                             1195 μs, p99 1630 μs, 20.0 秒 (最高温度 nvme0=56℃  
+                             nvme1=54℃ nvme2=57℃)                               
+[10/19/26 12:23:25] INFO     fs SEQ1M_Q8T1_read r2: 6,738 MB/s, 6,426 IOPS, 平均
+                             1244 μs, p99 1483 μs, 20.0 秒 (最高温度 nvme0=56℃  
+                             nvme1=54℃ nvme2=57℃)                               
+[10/19/26 12:23:54] INFO     fs SEQ1M_Q8T1_read r3: 6,756 MB/s, 6,442 IOPS, 平均
+                             1241 μs, p99 1499 μs, 20.0 秒 (最高温度 nvme0=56℃  
+                             nvme1=55℃ nvme2=57℃)                               
+[10/19/26 12:24:23] INFO     fs SEQ1M_Q1T1_read r1: 4,002 MB/s, 3,817 IOPS, 平均
+                             261 μs, p99 293 μs, 20.0 秒 (最高温度 nvme0=56℃    
+                             nvme1=55℃ nvme2=57℃)                               
+[10/19/26 12:24:52] INFO     fs SEQ1M_Q1T1_read r2: 4,010 MB/s, 3,824 IOPS, 平均
+                             261 μs, p99 285 μs, 20.0 秒 (最高温度 nvme0=56℃    
+                             nvme1=53℃ nvme2=57℃)                               
+[10/19/26 12:25:21] INFO     fs SEQ1M_Q1T1_read r3: 4,000 MB/s, 3,814 IOPS, 平均
+                             261 μs, p99 289 μs, 20.0 秒 (最高温度 nvme0=56℃    
+                             nvme1=53℃ nvme2=57℃)                               
+[10/19/26 12:25:50] INFO     fs RND4K_Q32T1_read r1: 1,479 MB/s, 361,067 IOPS,  
+                             平均 86 μs, p99 113 μs, 20.0 秒 (最高温度 nvme0=56℃
+                             nvme1=53℃ nvme2=57℃)                               
+[10/19/26 12:26:19] INFO     fs RND4K_Q32T1_read r2: 1,475 MB/s, 359,990 IOPS,  
+                             平均 86 μs, p99 115 μs, 20.0 秒 (最高温度 nvme0=56℃
+                             nvme1=52℃ nvme2=57℃)                               
+[10/19/26 12:26:47] INFO     fs RND4K_Q32T1_read r3: 1,475 MB/s, 360,067 IOPS,  
+                             平均 86 μs, p99 113 μs, 20.0 秒 (最高温度 nvme0=56℃
+                             nvme1=52℃ nvme2=57℃)                               
+[10/19/26 12:27:16] INFO     fs RND4K_Q1T1_read r1: 76 MB/s, 18,502 IOPS, 平均  
+                             51 μs, p99 54 μs, 20.0 秒 (最高温度 nvme0=56℃      
+                             nvme1=52℃ nvme2=57℃)                               
+[10/19/26 12:27:45] INFO     fs RND4K_Q1T1_read r2: 75 MB/s, 18,400 IOPS, 平均  
+                             52 μs, p99 54 μs, 20.0 秒 (最高温度 nvme0=56℃      
+                             nvme1=48℃ nvme2=57℃)                               
+[10/19/26 12:28:14] INFO     fs RND4K_Q1T1_read r3: 76 MB/s, 18,456 IOPS, 平均  
+                             51 μs, p99 54 μs, 20.0 秒 (最高温度 nvme0=56℃      
+                             nvme1=48℃ nvme2=57℃)                               
+[10/19/26 12:28:43] INFO     fs SEQ1M_Q32T4_read r1: 6,239 MB/s, 5,944 IOPS,    
+                             平均 21545 μs, p99 74973 μs, 20.0 秒 (最高温度     
+                             nvme0=56℃ nvme1=56℃ nvme2=57℃)                     
+[10/19/26 12:29:12] INFO     fs SEQ1M_Q32T4_read r2: 6,241 MB/s, 5,946 IOPS,    
+                             平均 21515 μs, p99 68682 μs, 20.0 秒 (最高温度     
+                             nvme0=56℃ nvme1=57℃ nvme2=57℃)                     
+[10/19/26 12:29:41] INFO     fs SEQ1M_Q32T4_read r3: 6,044 MB/s, 5,758 IOPS,    
+                             平均 22217 μs, p99 65274 μs, 20.0 秒 (最高温度     
+                             nvme0=56℃ nvme1=57℃ nvme2=57℃)                     
+[10/19/26 12:30:10] INFO     fs RND4K_Q32T8_read r1: 3,349 MB/s, 817,667 IOPS,  
+                             平均 304 μs, p99 635 μs, 20.0 秒 (最高温度         
+                             nvme0=56℃ nvme1=57℃ nvme2=57℃)                     
+[10/19/26 12:30:39] INFO     fs RND4K_Q32T8_read r2: 3,130 MB/s, 764,091 IOPS,  
+                             平均 325 μs, p99 569 μs, 20.0 秒 (最高温度         
+                             nvme0=56℃ nvme1=57℃ nvme2=57℃)                     
+[10/19/26 12:31:07] INFO     fs RND4K_Q32T8_read r3: 3,378 MB/s, 824,674 IOPS,  
+                             平均 302 μs, p99 643 μs, 20.0 秒 (最高温度         
+                             nvme0=56℃ nvme1=57℃ nvme2=57℃)                     
+[10/19/26 12:31:26] INFO     fs SEQ1M_Q8T1_write r1: 2,037 MB/s, 1,942 IOPS,    
+                             平均 4116 μs, p99 7307 μs, 10.0 秒 (最高温度       
+                             nvme0=56℃ nvme1=58℃ nvme2=57℃)                     
+[10/19/26 12:31:45] INFO     fs SEQ1M_Q8T1_write r2: 1,991 MB/s, 1,898 IOPS,    
+                             平均 4210 μs, p99 7307 μs, 10.0 秒 (最高温度       
+                             nvme0=56℃ nvme1=52℃ nvme2=57℃)                     
+[10/19/26 12:32:04] INFO     fs SEQ1M_Q8T1_write r3: 2,012 MB/s, 1,918 IOPS,    
+                             平均 4166 μs, p99 7373 μs, 10.0 秒 (最高温度       
+                             nvme0=56℃ nvme1=52℃ nvme2=57℃)                     
+[10/19/26 12:32:23] INFO     fs SEQ1M_Q1T1_write r1: 1,986 MB/s, 1,894 IOPS,    
+                             平均 525 μs, p99 651 μs, 10.0 秒 (最高温度         
+                             nvme0=56℃ nvme1=51℃ nvme2=56℃)                     
+[10/19/26 12:32:42] INFO     fs SEQ1M_Q1T1_write r2: 1,992 MB/s, 1,900 IOPS,    
+                             平均 523 μs, p99 651 μs, 10.0 秒 (最高温度         
+                             nvme0=56℃ nvme1=51℃ nvme2=56℃)                     
+[10/19/26 12:33:01] INFO     fs SEQ1M_Q1T1_write r3: 1,969 MB/s, 1,878 IOPS,    
+                             平均 529 μs, p99 668 μs, 10.0 秒 (最高温度         
+                             nvme0=55℃ nvme1=52℃ nvme2=56℃)                     
+[10/19/26 12:33:20] INFO     fs RND4K_Q32T1_write r1: 87 MB/s, 21,353 IOPS, 平均
+                             1498 μs, p99 2769 μs, 10.0 秒 (最高温度 nvme0=55℃  
+                             nvme1=51℃ nvme2=56℃)                               
+[10/19/26 12:33:39] INFO     fs RND4K_Q32T1_write r2: 140 MB/s, 34,240 IOPS,    
+                             平均 936 μs, p99 1696 μs, 10.0 秒 (最高温度        
+                             nvme0=56℃ nvme1=49℃ nvme2=56℃)                     
+[10/19/26 12:33:57] INFO     fs RND4K_Q32T1_write r3: 190 MB/s, 46,338 IOPS,    
+                             平均 690 μs, p99 1368 μs, 10.0 秒 (最高温度        
+                             nvme0=55℃ nvme1=49℃ nvme2=56℃)                     
+[10/19/26 12:34:16] INFO     fs RND4K_Q1T1_write r1: 127 MB/s, 31,012 IOPS, 平均
+                             31 μs, p99 50 μs, 10.0 秒 (最高温度 nvme0=55℃      
+                             nvme1=49℃ nvme2=56℃)                               
+[10/19/26 12:34:35] INFO     fs RND4K_Q1T1_write r2: 89 MB/s, 21,707 IOPS, 平均 
+                             45 μs, p99 69 μs, 10.0 秒 (最高温度 nvme0=55℃      
+                             nvme1=48℃ nvme2=56℃)                               
+[10/19/26 12:34:54] INFO     fs RND4K_Q1T1_write r3: 151 MB/s, 36,874 IOPS, 平均
+                             26 μs, p99 48 μs, 10.0 秒 (最高温度 nvme0=55℃      
+                             nvme1=48℃ nvme2=56℃)                               
+[10/19/26 12:35:13] INFO     fs SEQ1M_Q32T4_write r1: 3,112 MB/s, 2,956 IOPS,   
+                             平均 43280 μs, p99 88605 μs, 10.0 秒 (最高温度     
+                             nvme0=55℃ nvme1=50℃ nvme2=56℃)                     
+[10/19/26 12:35:32] INFO     fs SEQ1M_Q32T4_write r2: 3,378 MB/s, 3,209 IOPS,   
+                             平均 39782 μs, p99 85459 μs, 10.0 秒 (最高温度     
+                             nvme0=55℃ nvme1=51℃ nvme2=56℃)                     
+[10/19/26 12:35:51] INFO     fs SEQ1M_Q32T4_write r3: 3,371 MB/s, 3,203 IOPS,   
+                             平均 39860 μs, p99 79167 μs, 10.0 秒 (最高温度     
+                             nvme0=55℃ nvme1=52℃ nvme2=56℃)                     
+[10/19/26 12:36:10] INFO     fs RND4K_Q32T8_write r1: 403 MB/s, 98,286 IOPS,    
+                             平均 2603 μs, p99 6849 μs, 10.0 秒 (最高温度       
+                             nvme0=55℃ nvme1=52℃ nvme2=56℃)                     
+[10/19/26 12:36:29] INFO     fs RND4K_Q32T8_write r2: 418 MB/s, 101,917 IOPS,   
+                             平均 2510 μs, p99 4424 μs, 10.0 秒 (最高温度       
+                             nvme0=55℃ nvme1=48℃ nvme2=56℃)                     
+[10/19/26 12:36:47] INFO     fs RND4K_Q32T8_write r3: 482 MB/s, 117,631 IOPS,   
+                             平均 2174 μs, p99 4358 μs, 10.0 秒 (最高温度       
+                             nvme0=55℃ nvme1=48℃ nvme2=56℃)                     
+  fs RND4K_Q32T8_write (3/3) ━━━━━━━━━━━━━━━━━━━━━━━━ 36/36 0:14:15 残り 0:00:00
+[10/19/26 12:36:52] INFO     完了:                                              
+                             /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/
+                             runs/single/results.jsonl                          
+            計測結果 (繰り返しの中央値)            
+┏━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━━┓
+┃ suite ┃ test              ┃ 対象 ┃       single ┃
+┡━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━┩
+│ cdm   │ RND4K_Q1T1_read   │ fs   │      76 MB/s │
+│       │                   │      │  18,456 IOPS │
+│ cdm   │ RND4K_Q32T1_read  │ fs   │   1,475 MB/s │
+│       │                   │      │ 360,067 IOPS │
+│ cdm   │ RND4K_Q32T8_read  │ fs   │   3,349 MB/s │
+│       │                   │      │ 817,667 IOPS │
+│ cdm   │ SEQ1M_Q1T1_read   │ fs   │   4,002 MB/s │
+│ cdm   │ SEQ1M_Q32T4_read  │ fs   │   6,239 MB/s │
+│ cdm   │ SEQ1M_Q8T1_read   │ fs   │   6,756 MB/s │
+│ cdm   │ RND4K_Q1T1_write  │ fs   │     127 MB/s │
+│       │                   │      │  31,012 IOPS │
+│ cdm   │ RND4K_Q32T1_write │ fs   │     140 MB/s │
+│       │                   │      │  34,240 IOPS │
+│ cdm   │ RND4K_Q32T8_write │ fs   │     418 MB/s │
+│       │                   │      │ 101,917 IOPS │
+│ cdm   │ SEQ1M_Q1T1_write  │ fs   │   1,986 MB/s │
+│ cdm   │ SEQ1M_Q32T4_write │ fs   │   3,371 MB/s │
+│ cdm   │ SEQ1M_Q8T1_write  │ fs   │   2,012 MB/s │
+└───────┴───────────────────┴──────┴──────────────┘
+[10/19/26 12:36:53] INFO     設定: suite=cdm 対象=['nvme0']                     
+                             defaults={'ioengine': 'io_uring', 'direct': 1,     
+                             'runtime': 20, 'ramp_time': 3, 'repeats': 3,       
+                             'size': '64g', 'cooldown': 5, 'temp_interval': 1.0}
+                    INFO     /dev/nvme0n1 の先頭 64.0 GiB を書き埋めます        
+[10/19/26 12:37:28] INFO     nvme0 SEQ1M_Q8T1_read r1: 6,797 MB/s, 6,482 IOPS,  
+                             平均 1222 μs, p99 1663 μs, 20.0 秒 (最高温度       
+                             nvme0=66℃ nvme1=47℃ nvme2=56℃)                     
+[10/19/26 12:37:56] INFO     nvme0 SEQ1M_Q8T1_read r2: 6,618 MB/s, 6,311 IOPS,  
+                             平均 1255 μs, p99 1663 μs, 20.0 秒 (最高温度       
+                             nvme0=67℃ nvme1=47℃ nvme2=56℃)                     
+[10/19/26 12:38:25] INFO     nvme0 SEQ1M_Q8T1_read r3: 6,617 MB/s, 6,310 IOPS,  
+                             平均 1255 μs, p99 1663 μs, 20.0 秒 (最高温度       
+                             nvme0=68℃ nvme1=46℃ nvme2=57℃)                     
+[10/19/26 12:38:54] INFO     nvme0 SEQ1M_Q1T1_read r1: 5,044 MB/s, 4,810 IOPS,  
+                             平均 194 μs, p99 212 μs, 20.0 秒 (最高温度         
+                             nvme0=66℃ nvme1=46℃ nvme2=57℃)                     
+[10/19/26 12:39:23] INFO     nvme0 SEQ1M_Q1T1_read r2: 5,047 MB/s, 4,813 IOPS,  
+                             平均 194 μs, p99 214 μs, 20.0 秒 (最高温度         
+                             nvme0=66℃ nvme1=46℃ nvme2=58℃)                     
+[10/19/26 12:39:52] INFO     nvme0 SEQ1M_Q1T1_read r3: 5,054 MB/s, 4,820 IOPS,  
+                             平均 193 μs, p99 212 μs, 20.0 秒 (最高温度         
+                             nvme0=67℃ nvme1=46℃ nvme2=58℃)                     
+[10/19/26 12:40:21] INFO     nvme0 RND4K_Q32T1_read r1: 2,160 MB/s, 527,257     
+                             IOPS, 平均 60 μs, p99 96 μs, 20.0 秒 (最高温度     
+                             nvme0=67℃ nvme1=46℃ nvme2=58℃)                     
+[10/19/26 12:40:50] INFO     nvme0 RND4K_Q32T1_read r2: 2,157 MB/s, 526,567     
+                             IOPS, 平均 60 μs, p99 96 μs, 20.0 秒 (最高温度     
+                             nvme0=66℃ nvme1=46℃ nvme2=58℃)                     
+[10/19/26 12:41:19] INFO     nvme0 RND4K_Q32T1_read r3: 2,157 MB/s, 526,572     
+                             IOPS, 平均 60 μs, p99 96 μs, 20.0 秒 (最高温度     
+                             nvme0=66℃ nvme1=46℃ nvme2=59℃)                     
+[10/19/26 12:41:47] INFO     nvme0 RND4K_Q1T1_read r1: 78 MB/s, 18,929 IOPS,    
+                             平均 52 μs, p99 52 μs, 20.0 秒 (最高温度 nvme0=66℃ 
+                             nvme1=46℃ nvme2=59℃)                               
+[10/19/26 12:42:16] INFO     nvme0 RND4K_Q1T1_read r2: 78 MB/s, 18,961 IOPS,    
+                             平均 52 μs, p99 52 μs, 20.0 秒 (最高温度 nvme0=60℃ 
+                             nvme1=46℃ nvme2=59℃)                               
+[10/19/26 12:42:45] INFO     nvme0 RND4K_Q1T1_read r3: 78 MB/s, 18,963 IOPS,    
+                             平均 52 μs, p99 52 μs, 20.0 秒 (最高温度 nvme0=60℃ 
+                             nvme1=46℃ nvme2=59℃)                               
+[10/19/26 12:43:14] INFO     nvme0 SEQ1M_Q32T4_read r1: 6,140 MB/s, 5,849 IOPS, 
+                             平均 21856 μs, p99 60031 μs, 20.0 秒 (最高温度     
+                             nvme0=68℃ nvme1=47℃ nvme2=59℃)                     
+[10/19/26 12:43:43] INFO     nvme0 SEQ1M_Q32T4_read r2: 6,146 MB/s, 5,855 IOPS, 
+                             平均 21834 μs, p99 63701 μs, 20.1 秒 (最高温度     
+                             nvme0=69℃ nvme1=48℃ nvme2=59℃)                     
+[10/19/26 12:44:12] INFO     nvme0 SEQ1M_Q32T4_read r3: 6,143 MB/s, 5,852 IOPS, 
+                             平均 21848 μs, p99 62652 μs, 20.0 秒 (最高温度     
+                             nvme0=71℃ nvme1=48℃ nvme2=59℃)                     
+[10/19/26 12:44:41] INFO     nvme0 RND4K_Q32T8_read r1: 4,591 MB/s, 1,120,812   
+                             IOPS, 平均 228 μs, p99 889 μs, 20.0 秒 (最高温度   
+                             nvme0=73℃ nvme1=48℃ nvme2=59℃)                     
+[10/19/26 12:45:10] INFO     nvme0 RND4K_Q32T8_read r2: 4,594 MB/s, 1,121,603   
+                             IOPS, 平均 227 μs, p99 889 μs, 20.0 秒 (最高温度   
+                             nvme0=74℃ nvme1=47℃ nvme2=59℃)                     
+[10/19/26 12:45:38] INFO     nvme0 RND4K_Q32T8_read r3: 4,589 MB/s, 1,120,415   
+                             IOPS, 平均 228 μs, p99 881 μs, 20.0 秒 (最高温度   
+                             nvme0=74℃ nvme1=46℃ nvme2=60℃)                     
+[10/19/26 12:45:57] INFO     nvme0 SEQ1M_Q8T1_write r1: 5,889 MB/s, 5,615 IOPS, 
+                             平均 1410 μs, p99 2736 μs, 10.0 秒 (最高温度       
+                             nvme0=71℃ nvme1=46℃ nvme2=60℃)                     
+[10/19/26 12:46:16] INFO     nvme0 SEQ1M_Q8T1_write r2: 6,239 MB/s, 5,950 IOPS, 
+                             平均 1330 μs, p99 2736 μs, 10.0 秒 (最高温度       
+                             nvme0=71℃ nvme1=45℃ nvme2=60℃)                     
+[10/19/26 12:46:35] INFO     nvme0 SEQ1M_Q8T1_write r3: 6,245 MB/s, 5,955 IOPS, 
+                             平均 1329 μs, p99 2441 μs, 10.0 秒 (最高温度       
+                             nvme0=71℃ nvme1=45℃ nvme2=60℃)                     
+[10/19/26 12:46:54] INFO     nvme0 SEQ1M_Q1T1_write r1: 4,814 MB/s, 4,591 IOPS, 
+                             平均 204 μs, p99 220 μs, 10.0 秒 (最高温度         
+                             nvme0=69℃ nvme1=46℃ nvme2=60℃)                     
+[10/19/26 12:47:13] INFO     nvme0 SEQ1M_Q1T1_write r2: 4,822 MB/s, 4,599 IOPS, 
+                             平均 204 μs, p99 241 μs, 10.0 秒 (最高温度         
+                             nvme0=69℃ nvme1=45℃ nvme2=60℃)                     
+[10/19/26 12:47:32] INFO     nvme0 SEQ1M_Q1T1_write r3: 4,826 MB/s, 4,602 IOPS, 
+                             平均 204 μs, p99 222 μs, 10.0 秒 (最高温度         
+                             nvme0=69℃ nvme1=45℃ nvme2=60℃)                     
+[10/19/26 12:47:51] INFO     nvme0 RND4K_Q32T1_write r1: 2,373 MB/s, 579,349    
+                             IOPS, 平均 54 μs, p99 69 μs, 10.0 秒 (最高温度     
+                             nvme0=68℃ nvme1=46℃ nvme2=60℃)                     
+[10/19/26 12:48:10] INFO     nvme0 RND4K_Q32T1_write r2: 2,366 MB/s, 577,575    
+                             IOPS, 平均 54 μs, p99 70 μs, 10.0 秒 (最高温度     
+                             nvme0=66℃ nvme1=46℃ nvme2=60℃)                     
+[10/19/26 12:48:29] INFO     nvme0 RND4K_Q32T1_write r3: 2,320 MB/s, 566,503    
+                             IOPS, 平均 55 μs, p99 69 μs, 10.0 秒 (最高温度     
+                             nvme0=66℃ nvme1=47℃ nvme2=60℃)                     
+[10/19/26 12:48:48] INFO     nvme0 RND4K_Q1T1_write r1: 282 MB/s, 68,752 IOPS,  
+                             平均 14 μs, p99 14 μs, 10.0 秒 (最高温度 nvme0=67℃ 
+                             nvme1=47℃ nvme2=60℃)                               
+[10/19/26 12:49:07] INFO     nvme0 RND4K_Q1T1_write r2: 282 MB/s, 68,769 IOPS,  
+                             平均 14 μs, p99 14 μs, 10.0 秒 (最高温度 nvme0=63℃ 
+                             nvme1=45℃ nvme2=60℃)                               
+[10/19/26 12:49:25] INFO     nvme0 RND4K_Q1T1_write r3: 281 MB/s, 68,621 IOPS,  
+                             平均 14 μs, p99 14 μs, 10.0 秒 (最高温度 nvme0=62℃ 
+                             nvme1=45℃ nvme2=60℃)                               
+[10/19/26 12:49:44] INFO     nvme0 SEQ1M_Q32T4_write r1: 6,288 MB/s, 5,984 IOPS,
+                             平均 21343 μs, p99 56885 μs, 10.0 秒 (最高温度     
+                             nvme0=68℃ nvme1=45℃ nvme2=60℃)                     
+[10/19/26 12:50:03] INFO     nvme0 SEQ1M_Q32T4_write r2: 6,035 MB/s, 5,743 IOPS,
+                             平均 22233 μs, p99 78119 μs, 10.0 秒 (最高温度     
+                             nvme0=69℃ nvme1=45℃ nvme2=60℃)                     
+[10/19/26 12:50:22] INFO     nvme0 SEQ1M_Q32T4_write r3: 6,272 MB/s, 5,969 IOPS,
+                             平均 21428 μs, p99 60031 μs, 10.1 秒 (最高温度     
+                             nvme0=71℃ nvme1=45℃ nvme2=60℃)                     
+[10/19/26 12:50:41] INFO     nvme0 RND4K_Q32T8_write r1: 2,645 MB/s, 645,655    
+                             IOPS, 平均 395 μs, p99 2966 μs, 10.0 秒 (最高温度  
+                             nvme0=67℃ nvme1=45℃ nvme2=60℃)                     
+[10/19/26 12:51:00] INFO     nvme0 RND4K_Q32T8_write r2: 2,637 MB/s, 643,854    
+                             IOPS, 平均 397 μs, p99 3129 μs, 10.0 秒 (最高温度  
+                             nvme0=67℃ nvme1=45℃ nvme2=60℃)                     
+[10/19/26 12:51:19] INFO     nvme0 RND4K_Q32T8_write r3: 2,663 MB/s, 650,210    
+                             IOPS, 平均 393 μs, p99 2572 μs, 10.0 秒 (最高温度  
+                             nvme0=67℃ nvme1=45℃ nvme2=60℃)                     
+  nvme0 RND4K_Q32T8_write (3/3) ━━━━━━━━━━━━━━━━━━━━━ 36/36 0:14:14 残り 0:00:00
+[10/19/26 12:51:24] INFO     完了:                                              
+                             /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/
+                             runs/single/results.jsonl                          
+             計測結果 (繰り返しの中央値)              
+┏━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━┓
+┃ suite ┃ test              ┃ 対象  ┃         single ┃
+┡━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━━━┩
+│ cdm   │ RND4K_Q1T1_read   │ fs    │        76 MB/s │
+│       │                   │       │    18,456 IOPS │
+│ cdm   │ RND4K_Q32T1_read  │ fs    │     1,475 MB/s │
+│       │                   │       │   360,067 IOPS │
+│ cdm   │ RND4K_Q32T8_read  │ fs    │     3,349 MB/s │
+│       │                   │       │   817,667 IOPS │
+│ cdm   │ SEQ1M_Q1T1_read   │ fs    │     4,002 MB/s │
+│ cdm   │ SEQ1M_Q32T4_read  │ fs    │     6,239 MB/s │
+│ cdm   │ SEQ1M_Q8T1_read   │ fs    │     6,756 MB/s │
+│ cdm   │ RND4K_Q1T1_write  │ fs    │       127 MB/s │
+│       │                   │       │    31,012 IOPS │
+│ cdm   │ RND4K_Q32T1_write │ fs    │       140 MB/s │
+│       │                   │       │    34,240 IOPS │
+│ cdm   │ RND4K_Q32T8_write │ fs    │       418 MB/s │
+│       │                   │       │   101,917 IOPS │
+│ cdm   │ SEQ1M_Q1T1_write  │ fs    │     1,986 MB/s │
+│ cdm   │ SEQ1M_Q32T4_write │ fs    │     3,371 MB/s │
+│ cdm   │ SEQ1M_Q8T1_write  │ fs    │     2,012 MB/s │
+│ cdm   │ RND4K_Q1T1_read   │ nvme0 │        78 MB/s │
+│       │                   │       │    18,961 IOPS │
+│ cdm   │ RND4K_Q32T1_read  │ nvme0 │     2,157 MB/s │
+│       │                   │       │   526,572 IOPS │
+│ cdm   │ RND4K_Q32T8_read  │ nvme0 │     4,591 MB/s │
+│       │                   │       │ 1,120,812 IOPS │
+│ cdm   │ SEQ1M_Q1T1_read   │ nvme0 │     5,047 MB/s │
+│ cdm   │ SEQ1M_Q32T4_read  │ nvme0 │     6,143 MB/s │
+│ cdm   │ SEQ1M_Q8T1_read   │ nvme0 │     6,618 MB/s │
+│ cdm   │ RND4K_Q1T1_write  │ nvme0 │       282 MB/s │
+│       │                   │       │    68,752 IOPS │
+│ cdm   │ RND4K_Q32T1_write │ nvme0 │     2,366 MB/s │
+│       │                   │       │   577,575 IOPS │
+│ cdm   │ RND4K_Q32T8_write │ nvme0 │     2,645 MB/s │
+│       │                   │       │   645,655 IOPS │
+│ cdm   │ SEQ1M_Q1T1_write  │ nvme0 │     4,822 MB/s │
+│ cdm   │ SEQ1M_Q32T4_write │ nvme0 │     6,272 MB/s │
+│ cdm   │ SEQ1M_Q8T1_write  │ nvme0 │     6,239 MB/s │
+└───────┴───────────────────┴───────┴────────────────┘
+[10/19/26 12:51:24] INFO     設定: suite=cdm 対象=['nvme2']                     
+                             defaults={'ioengine': 'io_uring', 'direct': 1,     
+                             'runtime': 20, 'ramp_time': 3, 'repeats': 3,       
+                             'size': '64g', 'cooldown': 5, 'temp_interval': 1.0}
+                    INFO     /dev/nvme2n1 の先頭 64.0 GiB を書き埋めます        
+[10/19/26 12:52:08] INFO     nvme2 SEQ1M_Q8T1_read r1: 3,554 MB/s, 3,389 IOPS,  
+                             平均 2347 μs, p99 2900 μs, 20.0 秒 (最高温度       
+                             nvme0=61℃ nvme1=45℃ nvme2=65℃)                     
+[10/19/26 12:52:37] INFO     nvme2 SEQ1M_Q8T1_read r2: 3,552 MB/s, 3,387 IOPS,  
+                             平均 2348 μs, p99 2900 μs, 20.0 秒 (最高温度       
+                             nvme0=60℃ nvme1=46℃ nvme2=66℃)                     
+[10/19/26 12:53:06] INFO     nvme2 SEQ1M_Q8T1_read r3: 3,552 MB/s, 3,387 IOPS,  
+                             平均 2348 μs, p99 2867 μs, 20.0 秒 (最高温度       
+                             nvme0=60℃ nvme1=45℃ nvme2=66℃)                     
+[10/19/26 12:53:35] INFO     nvme2 SEQ1M_Q1T1_read r1: 3,033 MB/s, 2,892 IOPS,  
+                             平均 331 μs, p99 330 μs, 20.0 秒 (最高温度         
+                             nvme0=60℃ nvme1=45℃ nvme2=65℃)                     
+[10/19/26 12:54:03] INFO     nvme2 SEQ1M_Q1T1_read r2: 3,037 MB/s, 2,896 IOPS,  
+                             平均 331 μs, p99 330 μs, 20.0 秒 (最高温度         
+                             nvme0=60℃ nvme1=45℃ nvme2=65℃)                     
+[10/19/26 12:54:32] INFO     nvme2 SEQ1M_Q1T1_read r3: 3,036 MB/s, 2,895 IOPS,  
+                             平均 331 μs, p99 326 μs, 20.0 秒 (最高温度         
+                             nvme0=60℃ nvme1=45℃ nvme2=65℃)                     
+[10/19/26 12:55:01] INFO     nvme2 RND4K_Q32T1_read r1: 2,192 MB/s, 535,067     
+                             IOPS, 平均 59 μs, p99 96 μs, 20.0 秒 (最高温度     
+                             nvme0=60℃ nvme1=45℃ nvme2=66℃)                     
+[10/19/26 12:55:30] INFO     nvme2 RND4K_Q32T1_read r2: 2,190 MB/s, 534,618     
+                             IOPS, 平均 59 μs, p99 96 μs, 20.0 秒 (最高温度     
+                             nvme0=60℃ nvme1=45℃ nvme2=66℃)                     
+[10/19/26 12:55:59] INFO     nvme2 RND4K_Q32T1_read r3: 2,191 MB/s, 534,849     
+                             IOPS, 平均 59 μs, p99 96 μs, 20.0 秒 (最高温度     
+                             nvme0=61℃ nvme1=45℃ nvme2=66℃)                     
+[10/19/26 12:56:28] INFO     nvme2 RND4K_Q1T1_read r1: 78 MB/s, 19,125 IOPS,    
+                             平均 51 μs, p99 51 μs, 20.0 秒 (最高温度 nvme0=63℃ 
+                             nvme1=45℃ nvme2=66℃)                               
+[10/19/26 12:56:57] INFO     nvme2 RND4K_Q1T1_read r2: 79 MB/s, 19,170 IOPS,    
+                             平均 51 μs, p99 51 μs, 20.0 秒 (最高温度 nvme0=64℃ 
+                             nvme1=45℃ nvme2=62℃)                               
+[10/19/26 12:57:26] INFO     nvme2 RND4K_Q1T1_read r3: 78 MB/s, 19,133 IOPS,    
+                             平均 51 μs, p99 51 μs, 20.0 秒 (最高温度 nvme0=64℃ 
+                             nvme1=45℃ nvme2=61℃)                               
+[10/19/26 12:57:55] INFO     nvme2 SEQ1M_Q32T4_read r1: 3,547 MB/s, 3,377 IOPS, 
+                             平均 37854 μs, p99 104333 μs, 20.0 秒 (最高温度    
+                             nvme0=64℃ nvme1=45℃ nvme2=66℃)                     
+[10/19/26 12:58:23] INFO     nvme2 SEQ1M_Q32T4_read r2: 3,547 MB/s, 3,376 IOPS, 
+                             平均 37865 μs, p99 111673 μs, 20.0 秒 (最高温度    
+                             nvme0=64℃ nvme1=45℃ nvme2=66℃)                     
+[10/19/26 12:58:52] INFO     nvme2 SEQ1M_Q32T4_read r3: 3,547 MB/s, 3,377 IOPS, 
+                             平均 37856 μs, p99 104333 μs, 20.0 秒 (最高温度    
+                             nvme0=64℃ nvme1=45℃ nvme2=67℃)                     
+[10/19/26 12:59:21] INFO     nvme2 RND4K_Q32T8_read r1: 3,469 MB/s, 847,025     
+                             IOPS, 平均 301 μs, p99 1073 μs, 20.0 秒 (最高温度  
+                             nvme0=64℃ nvme1=45℃ nvme2=70℃)                     
+[10/19/26 12:59:50] INFO     nvme2 RND4K_Q32T8_read r2: 3,470 MB/s, 847,128     
+                             IOPS, 平均 301 μs, p99 1073 μs, 20.0 秒 (最高温度  
+                             nvme0=64℃ nvme1=45℃ nvme2=71℃)                     
+[10/19/26 13:00:19] INFO     nvme2 RND4K_Q32T8_read r3: 3,470 MB/s, 847,157     
+                             IOPS, 平均 301 μs, p99 1073 μs, 20.0 秒 (最高温度  
+                             nvme0=62℃ nvme1=45℃ nvme2=71℃)                     
+[10/19/26 13:00:38] INFO     nvme2 SEQ1M_Q8T1_write r1: 3,352 MB/s, 3,196 IOPS, 
+                             平均 2488 μs, p99 5800 μs, 10.0 秒 (最高温度       
+                             nvme0=61℃ nvme1=45℃ nvme2=69℃)                     
+[10/19/26 13:00:57] INFO     nvme2 SEQ1M_Q8T1_write r2: 3,361 MB/s, 3,205 IOPS, 
+                             平均 2481 μs, p99 5800 μs, 10.0 秒 (最高温度       
+                             nvme0=61℃ nvme1=45℃ nvme2=67℃)                     
+[10/19/26 13:01:15] INFO     nvme2 SEQ1M_Q8T1_write r3: 3,360 MB/s, 3,204 IOPS, 
+                             平均 2482 μs, p99 5800 μs, 10.0 秒 (最高温度       
+                             nvme0=61℃ nvme1=45℃ nvme2=67℃)                     
+[10/19/26 13:01:34] INFO     nvme2 SEQ1M_Q1T1_write r1: 2,917 MB/s, 2,781 IOPS, 
+                             平均 345 μs, p99 350 μs, 10.0 秒 (最高温度         
+                             nvme0=61℃ nvme1=46℃ nvme2=66℃)                     
+[10/19/26 13:01:53] INFO     nvme2 SEQ1M_Q1T1_write r2: 2,915 MB/s, 2,780 IOPS, 
+                             平均 346 μs, p99 342 μs, 10.0 秒 (最高温度         
+                             nvme0=61℃ nvme1=46℃ nvme2=66℃)                     
+[10/19/26 13:02:12] INFO     nvme2 SEQ1M_Q1T1_write r3: 2,919 MB/s, 2,784 IOPS, 
+                             平均 345 μs, p99 350 μs, 10.0 秒 (最高温度         
+                             nvme0=60℃ nvme1=46℃ nvme2=66℃)                     
+[10/19/26 13:02:31] INFO     nvme2 RND4K_Q32T1_write r1: 2,612 MB/s, 637,781    
+                             IOPS, 平均 49 μs, p99 69 μs, 10.0 秒 (最高温度     
+                             nvme0=60℃ nvme1=46℃ nvme2=66℃)                     
+[10/19/26 13:02:50] INFO     nvme2 RND4K_Q32T1_write r2: 2,595 MB/s, 633,558    
+                             IOPS, 平均 49 μs, p99 69 μs, 10.0 秒 (最高温度     
+                             nvme0=60℃ nvme1=46℃ nvme2=67℃)                     
+[10/19/26 13:03:09] INFO     nvme2 RND4K_Q32T1_write r3: 2,613 MB/s, 637,956    
+                             IOPS, 平均 49 μs, p99 68 μs, 10.0 秒 (最高温度     
+                             nvme0=60℃ nvme1=45℃ nvme2=67℃)                     
+[10/19/26 13:03:27] INFO     nvme2 RND4K_Q1T1_write r1: 280 MB/s, 68,319 IOPS,  
+                             平均 14 μs, p99 14 μs, 10.0 秒 (最高温度 nvme0=60℃ 
+                             nvme1=45℃ nvme2=67℃)                               
+[10/19/26 13:03:46] INFO     nvme2 RND4K_Q1T1_write r2: 281 MB/s, 68,553 IOPS,  
+                             平均 14 μs, p99 14 μs, 10.0 秒 (最高温度 nvme0=60℃ 
+                             nvme1=46℃ nvme2=63℃)                               
+[10/19/26 13:04:05] INFO     nvme2 RND4K_Q1T1_write r3: 280 MB/s, 68,455 IOPS,  
+                             平均 14 μs, p99 14 μs, 10.0 秒 (最高温度 nvme0=60℃ 
+                             nvme1=46℃ nvme2=62℃)                               
+[10/19/26 13:04:24] INFO     nvme2 SEQ1M_Q32T4_write r1: 3,363 MB/s, 3,195 IOPS,
+                             平均 39965 μs, p99 100139 μs, 10.0 秒 (最高温度    
+                             nvme0=60℃ nvme1=45℃ nvme2=65℃)                     
+[10/19/26 13:04:43] INFO     nvme2 SEQ1M_Q32T4_write r2: 3,365 MB/s, 3,196 IOPS,
+                             平均 39946 μs, p99 100139 μs, 10.0 秒 (最高温度    
+                             nvme0=60℃ nvme1=45℃ nvme2=65℃)                     
+[10/19/26 13:05:02] INFO     nvme2 SEQ1M_Q32T4_write r3: 3,363 MB/s, 3,195 IOPS,
+                             平均 39966 μs, p99 94896 μs, 10.0 秒 (最高温度     
+                             nvme0=60℃ nvme1=45℃ nvme2=66℃)                     
+[10/19/26 13:05:21] INFO     nvme2 RND4K_Q32T8_write r1: 2,760 MB/s, 673,714    
+                             IOPS, 平均 379 μs, p99 1012 μs, 10.0 秒 (最高温度  
+                             nvme0=60℃ nvme1=45℃ nvme2=66℃)                     
+[10/19/26 13:05:40] INFO     nvme2 RND4K_Q32T8_write r2: 2,756 MB/s, 672,876    
+                             IOPS, 平均 380 μs, p99 995 μs, 10.0 秒 (最高温度   
+                             nvme0=60℃ nvme1=45℃ nvme2=66℃)                     
+[10/19/26 13:05:59] INFO     nvme2 RND4K_Q32T8_write r3: 2,790 MB/s, 681,111    
+                             IOPS, 平均 375 μs, p99 979 μs, 10.0 秒 (最高温度   
+                             nvme0=60℃ nvme1=45℃ nvme2=66℃)                     
+  nvme2 RND4K_Q32T8_write (3/3) ━━━━━━━━━━━━━━━━━━━━━ 36/36 0:14:14 残り 0:00:00
+[10/19/26 13:06:04] INFO     完了:                                              
+                             /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/
+                             runs/single/results.jsonl                          
+             計測結果 (繰り返しの中央値)              
+┏━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━┓
+┃ suite ┃ test              ┃ 対象  ┃         single ┃
+┡━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━━━━━┩
+│ cdm   │ RND4K_Q1T1_read   │ fs    │        76 MB/s │
+│       │                   │       │    18,456 IOPS │
+│ cdm   │ RND4K_Q32T1_read  │ fs    │     1,475 MB/s │
+│       │                   │       │   360,067 IOPS │
+│ cdm   │ RND4K_Q32T8_read  │ fs    │     3,349 MB/s │
+│       │                   │       │   817,667 IOPS │
+│ cdm   │ SEQ1M_Q1T1_read   │ fs    │     4,002 MB/s │
+│ cdm   │ SEQ1M_Q32T4_read  │ fs    │     6,239 MB/s │
+│ cdm   │ SEQ1M_Q8T1_read   │ fs    │     6,756 MB/s │
+│ cdm   │ RND4K_Q1T1_write  │ fs    │       127 MB/s │
+│       │                   │       │    31,012 IOPS │
+│ cdm   │ RND4K_Q32T1_write │ fs    │       140 MB/s │
+│       │                   │       │    34,240 IOPS │
+│ cdm   │ RND4K_Q32T8_write │ fs    │       418 MB/s │
+│       │                   │       │   101,917 IOPS │
+│ cdm   │ SEQ1M_Q1T1_write  │ fs    │     1,986 MB/s │
+│ cdm   │ SEQ1M_Q32T4_write │ fs    │     3,371 MB/s │
+│ cdm   │ SEQ1M_Q8T1_write  │ fs    │     2,012 MB/s │
+│ cdm   │ RND4K_Q1T1_read   │ nvme0 │        78 MB/s │
+│       │                   │       │    18,961 IOPS │
+│ cdm   │ RND4K_Q32T1_read  │ nvme0 │     2,157 MB/s │
+│       │                   │       │   526,572 IOPS │
+│ cdm   │ RND4K_Q32T8_read  │ nvme0 │     4,591 MB/s │
+│       │                   │       │ 1,120,812 IOPS │
+│ cdm   │ SEQ1M_Q1T1_read   │ nvme0 │     5,047 MB/s │
+│ cdm   │ SEQ1M_Q32T4_read  │ nvme0 │     6,143 MB/s │
+│ cdm   │ SEQ1M_Q8T1_read   │ nvme0 │     6,618 MB/s │
+│ cdm   │ RND4K_Q1T1_write  │ nvme0 │       282 MB/s │
+│       │                   │       │    68,752 IOPS │
+│ cdm   │ RND4K_Q32T1_write │ nvme0 │     2,366 MB/s │
+│       │                   │       │   577,575 IOPS │
+│ cdm   │ RND4K_Q32T8_write │ nvme0 │     2,645 MB/s │
+│       │                   │       │   645,655 IOPS │
+│ cdm   │ SEQ1M_Q1T1_write  │ nvme0 │     4,822 MB/s │
+│ cdm   │ SEQ1M_Q32T4_write │ nvme0 │     6,272 MB/s │
+│ cdm   │ SEQ1M_Q8T1_write  │ nvme0 │     6,239 MB/s │
+│ cdm   │ RND4K_Q1T1_read   │ nvme2 │        78 MB/s │
+│       │                   │       │    19,133 IOPS │
+│ cdm   │ RND4K_Q32T1_read  │ nvme2 │     2,191 MB/s │
+│       │                   │       │   534,849 IOPS │
+│ cdm   │ RND4K_Q32T8_read  │ nvme2 │     3,470 MB/s │
+│       │                   │       │   847,128 IOPS │
+│ cdm   │ SEQ1M_Q1T1_read   │ nvme2 │     3,036 MB/s │
+│ cdm   │ SEQ1M_Q32T4_read  │ nvme2 │     3,547 MB/s │
+│ cdm   │ SEQ1M_Q8T1_read   │ nvme2 │     3,552 MB/s │
+│ cdm   │ RND4K_Q1T1_write  │ nvme2 │       280 MB/s │
+│       │                   │       │    68,455 IOPS │
+│ cdm   │ RND4K_Q32T1_write │ nvme2 │     2,612 MB/s │
+│       │                   │       │   637,781 IOPS │
+│ cdm   │ RND4K_Q32T8_write │ nvme2 │     2,760 MB/s │
+│       │                   │       │   673,714 IOPS │
+│ cdm   │ SEQ1M_Q1T1_write  │ nvme2 │     2,917 MB/s │
+│ cdm   │ SEQ1M_Q32T4_write │ nvme2 │     3,363 MB/s │
+│ cdm   │ SEQ1M_Q8T1_write  │ nvme2 │     3,360 MB/s │
+└───────┴───────────────────┴───────┴────────────────┘
+[10/19/26 13:06:04] INFO     設定: suite=concurrent 対象=['fs', 'nvme0',        
+                             'nvme2'] defaults={'ioengine': 'io_uring',         
+                             'direct': 1, 'runtime': 20, 'ramp_time': 3,        
+                             'repeats': 3, 'size': '64g', 'cooldown': 5,        
+                             'temp_interval': 1.0}                              
+[10/19/26 13:06:08] INFO     計測用ファイルを作成します:                        
+                             /home/akiva/nvme-bench-scratch/fio-testfile (64.0  
+                             GiB)                                               
+[10/19/26 13:06:46] INFO     /dev/nvme0n1 の先頭 64.0 GiB を書き埋めます        
+[10/19/26 13:06:58] INFO     /dev/nvme2n1 の先頭 64.0 GiB を書き埋めます        
+[10/19/26 13:07:42] INFO     fs+nvme0+nvme2 SEQ1M_Q32T4_read r1: 15,753 MB/s,   
+                             15,005 IOPS, 平均 25583 μs, p99 114819 μs, 20.0 秒 
+                             (最高温度 nvme0=69℃ nvme1=54℃ nvme2=65℃)           
+[10/19/26 13:08:11] INFO     fs+nvme0+nvme2 SEQ1M_Q32T4_read r2: 15,711 MB/s,   
+                             14,964 IOPS, 平均 25646 μs, p99 110625 μs, 20.0 秒 
+                             (最高温度 nvme0=71℃ nvme1=55℃ nvme2=66℃)           
+[10/19/26 13:08:40] INFO     fs+nvme0+nvme2 SEQ1M_Q32T4_read r3: 15,727 MB/s,   
+                             14,980 IOPS, 平均 25620 μs, p99 110625 μs, 20.0 秒 
+                             (最高温度 nvme0=72℃ nvme1=56℃ nvme2=66℃)           
+[10/19/26 13:08:58] INFO     fs+nvme0+nvme2 SEQ1M_Q32T4_write r1: 12,825 MB/s,  
+                             12,194 IOPS, 平均 31418 μs, p99 95945 μs, 10.0 秒  
+                             (最高温度 nvme0=72℃ nvme1=56℃ nvme2=67℃)           
+[10/19/26 13:09:17] INFO     fs+nvme0+nvme2 SEQ1M_Q32T4_write r2: 12,807 MB/s,  
+                             12,176 IOPS, 平均 31483 μs, p99 94896 μs, 10.0 秒  
+                             (最高温度 nvme0=72℃ nvme1=53℃ nvme2=66℃)           
+[10/19/26 13:09:36] INFO     fs+nvme0+nvme2 SEQ1M_Q32T4_write r3: 12,615 MB/s,  
+                             11,993 IOPS, 平均 31932 μs, p99 92799 μs, 10.1 秒  
+                             (最高温度 nvme0=72℃ nvme1=53℃ nvme2=66℃)           
+  fs+nvme0+nvme2 SEQ1M_Q32T4_write (3/3) ━━━━━━━━━━━━━━ 6/6 0:02:18 残り 0:00:00
+[10/19/26 13:09:41] INFO     完了:                                              
+                             /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/
+                             runs/single/results.jsonl                          
+                   計測結果 (繰り返しの中央値)                   
+┏━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃ suite      ┃ test              ┃ 対象           ┃      single ┃
+┡━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ concurrent │ SEQ1M_Q32T4_read  │ fs+nvme0+nvme2 │ 15,727 MB/s │
+│ concurrent │ SEQ1M_Q32T4_write │ fs+nvme0+nvme2 │ 12,807 MB/s │
+└────────────┴───────────────────┴────────────────┴─────────────┘
+[10/19/26 13:09:41] INFO     設定: suite=coldread 対象=['gguf']                 
+                             defaults={'ioengine': 'io_uring', 'direct': 1,     
+                             'runtime': 20, 'ramp_time': 3, 'repeats': 3,       
+                             'size': '64g', 'cooldown': 5, 'temp_interval': 1.0}
+[10/19/26 13:09:54] INFO     gguf buffered_read_1M r1: 4,831 MB/s, 4,607 IOPS,  
+                             平均 217 μs, p99 2212 μs, 11.3 秒 (最高温度        
+                             nvme0=68℃ nvme1=53℃ nvme2=67℃)                     
+[10/19/26 13:10:12] INFO     gguf buffered_read_1M r2: 5,150 MB/s, 4,911 IOPS,  
+                             平均 203 μs, p99 1712 μs, 10.6 秒 (最高温度        
+                             nvme0=64℃ nvme1=55℃ nvme2=63℃)                     
+[10/19/26 13:10:30] INFO     gguf buffered_read_1M r3: 5,612 MB/s, 5,352 IOPS,  
+                             平均 187 μs, p99 1647 μs, 9.8 秒 (最高温度         
+                             nvme0=62℃ nvme1=55℃ nvme2=62℃)                     
+[10/19/26 13:10:50] INFO     gguf mmap_read_1M r1: 4,949 MB/s, 4,720 IOPS, 平均 
+                             212 μs, p99 1794 μs, 11.1 秒 (最高温度 nvme0=63℃   
+                             nvme1=54℃ nvme2=62℃)                               
+[10/19/26 13:11:09] INFO     gguf mmap_read_1M r2: 4,885 MB/s, 4,659 IOPS, 平均 
+                             214 μs, p99 1810 μs, 11.2 秒 (最高温度 nvme0=62℃   
+                             nvme1=54℃ nvme2=61℃)                               
+[10/19/26 13:11:28] INFO     gguf mmap_read_1M r3: 4,957 MB/s, 4,728 IOPS, 平均 
+                             211 μs, p99 1794 μs, 11.1 秒 (最高温度 nvme0=61℃   
+                             nvme1=54℃ nvme2=61℃)                               
+[10/19/26 13:11:49] INFO     gguf direct_read_Q32T4 r1: 4,301 MB/s, 4,101 IOPS, 
+                             平均 31204 μs, p99 100139 μs, 12.9 秒 (最高温度    
+                             nvme0=60℃ nvme1=55℃ nvme2=60℃)                     
+[10/19/26 13:12:08] INFO     gguf direct_read_Q32T4 r2: 4,438 MB/s, 4,232 IOPS, 
+                             平均 30240 μs, p99 92799 μs, 12.5 秒 (最高温度     
+                             nvme0=60℃ nvme1=55℃ nvme2=60℃)                     
+[10/19/26 13:12:25] INFO     gguf direct_read_Q32T4 r3: 4,842 MB/s, 4,618 IOPS, 
+                             平均 27714 μs, p99 90702 μs, 11.5 秒 (最高温度     
+                             nvme0=59℃ nvme1=55℃ nvme2=60℃)                     
+  gguf direct_read_Q32T4 (3/3) ━━━━━━━━━━━━━━━━━━━━━━━━ 9/9 0:02:44 残り 0:00:00
+[10/19/26 13:12:30] INFO     完了:                                              
+                             /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/
+                             runs/single/results.jsonl                          
+            計測結果 (繰り返しの中央値)             
+┏━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━┓
+┃ suite    ┃ test              ┃ 対象 ┃     single ┃
+┡━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━┩
+│ coldread │ buffered_read_1M  │ gguf │ 5,150 MB/s │
+│          │                   │      │    10.6 秒 │
+│ coldread │ direct_read_Q32T4 │ gguf │ 4,438 MB/s │
+│          │                   │      │    12.5 秒 │
+│ coldread │ mmap_read_1M      │ gguf │ 4,949 MB/s │
+│          │                   │      │    11.1 秒 │
+└──────────┴───────────────────┴──────┴────────────┘
+[10/19/26 13:12:30] INFO     設定: suite=sustained 対象=['nvme0']               
+                             defaults={'ioengine': 'io_uring', 'direct': 1,     
+                             'runtime': 20, 'ramp_time': 3, 'repeats': 3,       
+                             'size': '64g', 'cooldown': 5, 'temp_interval': 1.0}
+                    INFO     /dev/nvme0n1 を TRIM します (SLC                   
+                             キャッシュを空きの多い状態に戻す)                  
+[10/19/26 13:12:44] INFO     TRIM 後に 60 秒待ちます                            
+[10/19/26 13:14:36] INFO     nvme0 SEQ1M_Q8T1_write_300g r1: 6,259 MB/s, 5,969  
+                             IOPS, 平均 1326 μs, p99 2474 μs, 51.5 秒 (最高温度 
+                             nvme0=71℃ nvme1=48℃ nvme2=59℃)                     
+  nvme0 SEQ1M_Q8T1_write_300g (1/1) ━━━━━━━━━━━━━━━━━━━ 1/1 0:00:52 残り 0:00:00
+[10/19/26 13:14:41] INFO     完了:                                              
+                             /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/
+                             runs/single/results.jsonl                          
+               計測結果 (繰り返しの中央値)                
+┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━┓
+┃ suite     ┃ test                  ┃ 対象  ┃     single ┃
+┡━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━┩
+│ sustained │ SEQ1M_Q8T1_write_300g │ nvme0 │ 6,259 MB/s │
+│           │                       │       │    51.5 秒 │
+└───────────┴───────────────────────┴───────┴────────────┘
+[10/19/26 13:14:41] INFO     設定: suite=sustained 対象=['nvme2']               
+                             defaults={'ioengine': 'io_uring', 'direct': 1,     
+                             'runtime': 20, 'ramp_time': 3, 'repeats': 3,       
+                             'size': '64g', 'cooldown': 5, 'temp_interval': 1.0}
+                    INFO     /dev/nvme2n1 を TRIM します (SLC                   
+                             キャッシュを空きの多い状態に戻す)                  
+[10/19/26 13:14:53] INFO     TRIM 後に 60 秒待ちます                            
+[10/19/26 13:17:29] INFO     nvme2 SEQ1M_Q8T1_write_300g r1: 3,361 MB/s, 3,205  
+                             IOPS, 平均 2481 μs, p99 5800 μs, 95.9 秒 (最高温度 
+                             nvme0=59℃ nvme1=47℃ nvme2=66℃)                     
+  nvme2 SEQ1M_Q8T1_write_300g (1/1) ━━━━━━━━━━━━━━━━━━━ 1/1 0:01:36 残り 0:00:00
+[10/19/26 13:17:34] INFO     完了:                                              
+                             /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/
+                             runs/single/results.jsonl                          
+               計測結果 (繰り返しの中央値)                
+┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━━┓
+┃ suite     ┃ test                  ┃ 対象  ┃     single ┃
+┡━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━━┩
+│ sustained │ SEQ1M_Q8T1_write_300g │ nvme0 │ 6,259 MB/s │
+│           │                       │       │    51.5 秒 │
+│ sustained │ SEQ1M_Q8T1_write_300g │ nvme2 │ 3,361 MB/s │
+│           │                       │       │    95.9 秒 │
+└───────────┴───────────────────────┴───────┴────────────┘

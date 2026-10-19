@@ -1,0 +1,52 @@
+argv:
+- /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/.venv/bin/nvme-bench
+- run
+- --label
+- single
+- --suite
+- concurrent
+- --target
+- fs
+- --target
+- nvme0
+- --target
+- nvme2
+- --allow-destroy
+- /dev/nvme0n1
+- --allow-destroy
+- /dev/nvme2n1
+defaults:
+  ioengine: io_uring
+  direct: 1
+  runtime: 20
+  ramp_time: 3
+  repeats: 3
+  size: 64g
+  cooldown: 5
+  temp_interval: 1.0
+suite:
+  concurrent:
+    precondition: true
+    concurrent: true
+    tests:
+    - name: SEQ1M_Q32T4_read
+      rw: read
+      bs: 1m
+      iodepth: 32
+      numjobs: 4
+    - name: SEQ1M_Q32T4_write
+      rw: write
+      bs: 1m
+      iodepth: 32
+      numjobs: 4
+      runtime: 10
+targets:
+  fs:
+    kind: file
+    path: ~/nvme-bench-scratch/fio-testfile
+  nvme0:
+    kind: device
+    path: /dev/nvme0n1
+  nvme2:
+    kind: device
+    path: /dev/nvme2n1

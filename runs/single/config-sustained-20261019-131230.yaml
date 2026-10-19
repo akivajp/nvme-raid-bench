@@ -1,0 +1,40 @@
+argv:
+- /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/.venv/bin/nvme-bench
+- run
+- --label
+- single
+- --suite
+- sustained
+- --target
+- nvme0
+- --allow-destroy
+- /dev/nvme0n1
+- --allow-destroy
+- /dev/nvme2n1
+defaults:
+  ioengine: io_uring
+  direct: 1
+  runtime: 20
+  ramp_time: 3
+  repeats: 3
+  size: 64g
+  cooldown: 5
+  temp_interval: 1.0
+suite:
+  sustained:
+    pre_discard: true
+    pre_idle: 60
+    tests:
+    - name: SEQ1M_Q8T1_write_300g
+      rw: write
+      bs: 1m
+      iodepth: 8
+      numjobs: 1
+      size: 300g
+      time_based: false
+      repeats: 1
+      bw_log: true
+targets:
+  nvme0:
+    kind: device
+    path: /dev/nvme0n1
