@@ -1,0 +1,63 @@
+[10/19/26 21:52:33] INFO     設定: suite=coldread_parallel 対象=['gguf']        
+                             defaults={'ioengine': 'io_uring', 'direct': 1,     
+                             'runtime': 20, 'ramp_time': 3, 'repeats': 3,       
+                             'size': '64g', 'cooldown': 5, 'temp_interval': 1.0}
+[10/19/26 21:52:40] INFO     gguf buffered_read_1M_T2 r1: 8,943 MB/s, 8,528     
+                             IOPS, 平均 234 μs, p99 2089 μs, 6.3 秒 (最高温度   
+                             nvme0=58℃ nvme1=46℃ nvme2=59℃)                     
+[10/19/26 21:52:55] INFO     gguf buffered_read_1M_T2 r2: 8,947 MB/s, 8,532     
+                             IOPS, 平均 234 μs, p99 2040 μs, 6.3 秒 (最高温度   
+                             nvme0=59℃ nvme1=47℃ nvme2=59℃)                     
+[10/19/26 21:53:10] INFO     gguf buffered_read_1M_T2 r3: 8,001 MB/s, 7,630     
+                             IOPS, 平均 262 μs, p99 2507 μs, 6.9 秒 (最高温度   
+                             nvme0=59℃ nvme1=49℃ nvme2=62℃)                     
+[10/19/26 21:53:24] INFO     gguf buffered_read_1M_T4 r1: 9,102 MB/s, 8,681     
+                             IOPS, 平均 460 μs, p99 5407 μs, 6.5 秒 (最高温度   
+                             nvme0=59℃ nvme1=49℃ nvme2=61℃)                     
+[10/19/26 21:53:39] INFO     gguf buffered_read_1M_T4 r2: 9,146 MB/s, 8,723     
+                             IOPS, 平均 458 μs, p99 5276 μs, 6.4 秒 (最高温度   
+                             nvme0=60℃ nvme1=50℃ nvme2=62℃)                     
+[10/19/26 21:53:54] INFO     gguf buffered_read_1M_T4 r3: 9,113 MB/s, 8,691     
+                             IOPS, 平均 460 μs, p99 5341 μs, 6.4 秒 (最高温度   
+                             nvme0=60℃ nvme1=50℃ nvme2=62℃)                     
+[10/19/26 21:54:08] INFO     gguf buffered_read_1M_T8 r1: 9,536 MB/s, 9,094     
+                             IOPS, 平均 879 μs, p99 15008 μs, 6.2 秒 (最高温度  
+                             nvme0=62℃ nvme1=50℃ nvme2=62℃)                     
+[10/19/26 21:54:22] INFO     gguf buffered_read_1M_T8 r2: 9,539 MB/s, 9,097     
+                             IOPS, 平均 879 μs, p99 14615 μs, 6.2 秒 (最高温度  
+                             nvme0=62℃ nvme1=49℃ nvme2=62℃)                     
+[10/19/26 21:54:37] INFO     gguf buffered_read_1M_T8 r3: 9,673 MB/s, 9,225     
+                             IOPS, 平均 867 μs, p99 14877 μs, 6.2 秒 (最高温度  
+                             nvme0=63℃ nvme1=48℃ nvme2=61℃)                     
+[10/19/26 21:54:50] INFO     gguf mmap_read_1M_T4 r1: 12,255 MB/s, 11,687 IOPS, 
+                             平均 333 μs, p99 2408 μs, 4.5 秒 (最高温度         
+                             nvme0=63℃ nvme1=48℃ nvme2=61℃)                     
+[10/19/26 21:55:00] INFO     gguf mmap_read_1M_T4 r2: 13,139 MB/s, 12,530 IOPS, 
+                             平均 310 μs, p99 2277 μs, 4.2 秒 (最高温度         
+                             nvme0=61℃ nvme1=48℃ nvme2=61℃)                     
+[10/19/26 21:55:11] INFO     gguf mmap_read_1M_T4 r3: 13,422 MB/s, 12,800 IOPS, 
+                             平均 303 μs, p99 2277 μs, 4.1 秒 (最高温度         
+                             nvme0=60℃ nvme1=48℃ nvme2=61℃)                     
+[10/19/26 21:55:20] INFO     gguf mmap_read_1M_T8 r1: 28,087 MB/s, 26,786 IOPS, 
+                             平均 285 μs, p99 2023 μs, 2.0 秒 (最高温度         
+                             nvme0=60℃ nvme1=48℃ nvme2=60℃)                     
+[10/19/26 21:55:28] INFO     gguf mmap_read_1M_T8 r2: 27,779 MB/s, 26,492 IOPS, 
+                             平均 289 μs, p99 2146 μs, 2.0 秒 (最高温度         
+                             nvme0=59℃ nvme1=47℃ nvme2=60℃)                     
+[10/19/26 21:55:36] INFO     gguf mmap_read_1M_T8 r3: 28,980 MB/s, 27,637 IOPS, 
+                             平均 276 μs, p99 2212 μs, 1.9 秒 (最高温度         
+                             nvme0=60℃ nvme1=47℃ nvme2=60℃)                     
+  gguf mmap_read_1M_T8 (3/3) ━━━━━━━━━━━━━━━━━━━━━━━━ 15/15 0:03:03 残り 0:00:00
+[10/19/26 21:55:41] INFO     完了:                                              
+                             /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/
+                             runs/raid0/results.jsonl                           
+                  計測結果 (繰り返しの中央値)                   
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━┓
+┃ suite             ┃ test                ┃ 対象 ┃       raid0 ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━┩
+│ coldread_parallel │ buffered_read_1M_T2 │ gguf │  8,943 MB/s │
+│ coldread_parallel │ buffered_read_1M_T4 │ gguf │  9,113 MB/s │
+│ coldread_parallel │ buffered_read_1M_T8 │ gguf │  9,539 MB/s │
+│ coldread_parallel │ mmap_read_1M_T4     │ gguf │ 13,139 MB/s │
+│ coldread_parallel │ mmap_read_1M_T8     │ gguf │ 28,087 MB/s │
+└───────────────────┴─────────────────────┴──────┴─────────────┘

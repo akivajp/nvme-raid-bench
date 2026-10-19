@@ -76,7 +76,31 @@ uv run nvme-bench compare runs/single runs/raid0
 - 3台を同時に動かしても各台が単体と同じ速度を出し、チップセット・CPU 側の共有帯域による律速は見られない。
 - 54.8GB の GGUF をキャッシュの無い状態から読むと約 11 秒 (read() で 5.2GB/s、mmap で 4.9GB/s)。
 
-RAID0 構成の結果は計測後に追記する。
+### btrfs RAID0 (`runs/raid0/`)
+
+3台を `btrfs device add` → `balance -dconvert=raid0 -mconvert=raid1` で RAID0 化した後、同じ条件で計測した。
+
+| test | 単体 (nvme1) | RAID0 (3台) | 倍率 |
+|---|---:|---:|---:|
+| SEQ1M Q32T4 read | 6,239 MB/s | 10,630 MB/s | ×1.70 |
+| SEQ1M Q8T1 read | 6,756 MB/s | 9,733 MB/s | ×1.44 |
+| SEQ1M Q1T1 read | 4,002 MB/s | 6,581 MB/s | ×1.64 |
+| RND4K Q32T1 read | 1,475 MB/s | 1,293 MB/s | ×0.88 |
+| SEQ1M Q8T1 write | 2,012 MB/s | 1,907 MB/s | ×0.95 |
+| RND4K Q32T1 write | 140 MB/s | 179 MB/s | ×1.27 |
+| GGUF 54.8GB: O_DIRECT Q32T4 | 12.5 秒 | 5.4 秒 | ×2.35 |
+| GGUF 54.8GB: read() 1スレッド | 10.6 秒 | 9.9 秒 | ×1.07 |
+| GGUF 54.8GB: mmap 1スレッド | 11.1 秒 | 11.2 秒 | ×0.99 |
+| GGUF 54.8GB: read() 8スレッド | - | 6.2 秒 | |
+
+- シーケンシャル読み込みの上限は、最も遅い nvme2 (x2, 3.55GB/s) × 3 ≈ 10.6GB/s の予想どおり。btrfs RAID0 は各台に均等に割り振るため、速いドライブの余力は使われない。
+- **1スレッドの read() / mmap は RAID0 にしても速くならない** (約 5GB/s で頭打ち)。ストレージではなく、読み手1本の処理が律速。
+  並列に読むか O_DIRECT で深いキューを積めば RAID0 の帯域が出る (llama.cpp b11718 では `--load-mode dio` がある)。
+- シーケンシャル書き込みは単体・RAID0 とも約 2GB/s で変わらない。生デバイス単体 (6.2GB/s) より大幅に低く、btrfs 側の書き込み経路が律速と見られる (原因は未確認)。
+
+注意: fio の mmap エンジンは numjobs > 1 だと `offset_increment` が効かず、全ジョブが同じ範囲を読む。
+fio の報告は 28GB/s のように物理的にありえない値になるが、実際にディスクから読むのは 1/numjobs。
+[scripts/verify_mmap.py](scripts/verify_mmap.py) で `/proc/diskstats` と突き合わせて確認した ([runs/raid0/verify-mmap.log](runs/raid0/verify-mmap.log))。
 
 ## ライセンス
 

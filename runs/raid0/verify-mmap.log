@@ -1,0 +1,4 @@
+mmap   x8: fio io= 54.8 GB  disk=  6.9 GB  wall=  2.3 s  disk_rate=  3.0 GB/s
+mmap   x4: fio io= 54.8 GB  disk= 13.8 GB  wall=  4.3 s  disk_rate=  3.2 GB/s
+mmap   x1: fio io= 54.8 GB  disk= 54.9 GB  wall= 11.4 s  disk_rate=  4.8 GB/s
+psync  x8: fio io= 54.8 GB  disk= 55.0 GB  wall=  5.7 s  disk_rate=  9.7 GB/s
