@@ -150,6 +150,24 @@ CrystalDiskMark 相当の書き込み (O_DIRECT) が約 2GB/s に留まるのは
   代わりにデータのチェックサム (破損の検出)・圧縮・reflink が効かなくなる。
 - フォールバックせずにチェックサムを保つ修正 (`IOMAP_DIO_BOUNCE`、ゼロコピーの約95%) は 2026-06 時点で btrfs 側が未マージ。
 
+### LLM サーバーのモデルのロード時間 (`runs/model-load/`、`runs/model-load-trace/`)
+
+Qwen3.8-Flash-Next IQ3_S (GGUF 83.6GB) を RAID0 (全台 x4) から読み込み、API が応答して最初の短いリクエストが返るまでの時間。
+[scripts/model_load.py](scripts/model_load.py) (サーバーの起動は [local-llm-bench](https://github.com/akivajp/local-llm-bench) のスクリプト)。
+cold はページキャッシュを捨ててから、warm は直前の読み込みが残った状態。
+
+| 構成 | cold | warm | cold の読み込み速度の推移 |
+|---|---:|---:|---|
+| Strata 0.1.45、4090 単体 | 15.5〜16.0 秒 | 16.5 秒 | 約5秒の初期化の後、6.5GB/s で一定 |
+| Strata、`STRATA_UNBUFFERED_LOAD=1` (読み手 16 本) | 17.0 秒 | - | 6.5GB/s → 4〜5GB/s |
+| llama.cpp b11718 2GPU、`--load-mode mmap` (既定) | 17.9 秒 | 10.1 秒 | 6.6GB/s で一定 |
+| llama.cpp、`--load-mode none` | 18.5 秒 | 12.2 秒 | |
+| llama.cpp、`--load-mode dio` | **15.0 秒** | 14.4 秒 | 約7秒の初期化の後、最大 13.4GB/s |
+
+- **Strata のロードはストレージが律速ではない。** エキスパートの読み込み (46.8GiB) は、cold でも warm でも 5.9〜6.3GiB/s (Strata 自身のログ)。読み手を増やしても速くならない。固定メモリ (pinned memory) へのコピーなど CPU 側の処理で決まっていると見られ、RAID0 化の恩恵はほぼ無い。
+  なお Strata はエキスパートを RAM に固定するため、89GiB の RAM では GGUF のページキャッシュが残らず、warm でも 48GB をディスクから読み直していた。
+- llama.cpp は、cold では `dio` が最速 (mmap より 3秒速い)。モデルがページキャッシュに残っていれば mmap (10秒) が速い。
+
 ## ライセンス
 
 MIT

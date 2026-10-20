@@ -1,0 +1,57 @@
+2026-10-20 09:49:00 stop asr4u-backend-1
+2026-10-20 09:49:01 stopped
+[10/20/26 09:49:19] INFO     strata-iq3s-4090 cold: ready 15.5 秒 + 最初の応答  
+                             0.5 秒 = 16.0 秒 (ディスクから 57.1 GB)            
+[10/20/26 09:49:38] INFO     strata-iq3s-4090 cold: ready 15.5 秒 + 最初の応答  
+                             0.5 秒 = 16.0 秒 (ディスクから 57.1 GB)            
+[10/20/26 09:49:57] INFO     strata-iq3s-4090 cold: ready 15.0 秒 + 最初の応答  
+                             0.5 秒 = 15.5 秒 (ディスクから 57.1 GB)            
+[10/20/26 09:50:15] INFO     strata-iq3s-4090 warm: ready 16.0 秒 + 最初の応答  
+                             0.5 秒 = 16.5 秒 (ディスクから 48.2 GB)            
+[10/20/26 09:50:35] INFO     llamacpp-iq3s-2gpu-mmap cold: ready 17.0 秒 +      
+                             最初の応答 0.9 秒 = 17.9 秒 (ディスクから 56.0 GB) 
+[10/20/26 09:50:57] INFO     llamacpp-iq3s-2gpu-mmap cold: ready 17.0 秒 +      
+                             最初の応答 0.9 秒 = 17.9 秒 (ディスクから 55.9 GB) 
+[10/20/26 09:51:18] INFO     llamacpp-iq3s-2gpu-mmap cold: ready 17.0 秒 +      
+                             最初の応答 0.9 秒 = 17.9 秒 (ディスクから 55.9 GB) 
+[10/20/26 09:51:29] INFO     llamacpp-iq3s-2gpu-mmap warm: ready 9.3 秒 +       
+                             最初の応答 0.8 秒 = 10.1 秒 (ディスクから 0.0 GB)  
+[10/20/26 09:51:51] INFO     llamacpp-iq3s-2gpu-none cold: ready 17.6 秒 +      
+                             最初の応答 0.9 秒 = 18.5 秒 (ディスクから 55.9 GB) 
+[10/20/26 09:52:14] INFO     llamacpp-iq3s-2gpu-none cold: ready 17.6 秒 +      
+                             最初の応答 0.9 秒 = 18.5 秒 (ディスクから 56.0 GB) 
+[10/20/26 09:52:36] INFO     llamacpp-iq3s-2gpu-none cold: ready 17.7 秒 +      
+                             最初の応答 0.9 秒 = 18.6 秒 (ディスクから 55.9 GB) 
+[10/20/26 09:52:50] INFO     llamacpp-iq3s-2gpu-none warm: ready 11.5 秒 +      
+                             最初の応答 0.8 秒 = 12.2 秒 (ディスクから 0.0 GB)  
+[10/20/26 09:53:09] INFO     llamacpp-iq3s-2gpu-dio cold: ready 14.2 秒 +       
+                             最初の応答 0.9 秒 = 15.0 秒 (ディスクから 56.6 GB) 
+[10/20/26 09:53:25] INFO     llamacpp-iq3s-2gpu-dio cold: ready 14.1 秒 +       
+                             最初の応答 0.9 秒 = 14.9 秒 (ディスクから 56.5 GB) 
+[10/20/26 09:53:42] INFO     llamacpp-iq3s-2gpu-dio cold: ready 14.1 秒 +       
+                             最初の応答 0.9 秒 = 15.0 秒 (ディスクから 56.6 GB) 
+[10/20/26 09:53:58] INFO     llamacpp-iq3s-2gpu-dio warm: ready 13.6 秒 +       
+                             最初の応答 0.8 秒 = 14.4 秒 (ディスクから 52.1 GB) 
+                            モデルのロード時間 (秒)                             
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━┳━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ 構成                   ┃ 条件 ┃ ready ┃ 最初の応答 ┃ 合計 ┃ ディスク読み出し ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━╇━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ strata-iq3s-4090       │ cold │  15.5 │        0.5 │ 16.0 │          57.1 GB │
+│ strata-iq3s-4090       │ cold │  15.5 │        0.5 │ 16.0 │          57.1 GB │
+│ strata-iq3s-4090       │ cold │  15.0 │        0.5 │ 15.5 │          57.1 GB │
+│ strata-iq3s-4090       │ warm │  16.0 │        0.5 │ 16.5 │          48.2 GB │
+│ llamacpp-iq3s-2gpu-mm… │ cold │  17.0 │        0.9 │ 17.9 │          56.0 GB │
+│ llamacpp-iq3s-2gpu-mm… │ cold │  17.0 │        0.9 │ 17.9 │          55.9 GB │
+│ llamacpp-iq3s-2gpu-mm… │ cold │  17.0 │        0.9 │ 17.9 │          55.9 GB │
+│ llamacpp-iq3s-2gpu-mm… │ warm │   9.3 │        0.8 │ 10.1 │           0.0 GB │
+│ llamacpp-iq3s-2gpu-no… │ cold │  17.6 │        0.9 │ 18.5 │          55.9 GB │
+│ llamacpp-iq3s-2gpu-no… │ cold │  17.6 │        0.9 │ 18.5 │          56.0 GB │
+│ llamacpp-iq3s-2gpu-no… │ cold │  17.7 │        0.9 │ 18.6 │          55.9 GB │
+│ llamacpp-iq3s-2gpu-no… │ warm │  11.5 │        0.8 │ 12.2 │           0.0 GB │
+│ llamacpp-iq3s-2gpu-dio │ cold │  14.2 │        0.9 │ 15.0 │          56.6 GB │
+│ llamacpp-iq3s-2gpu-dio │ cold │  14.1 │        0.9 │ 14.9 │          56.5 GB │
+│ llamacpp-iq3s-2gpu-dio │ cold │  14.1 │        0.9 │ 15.0 │          56.6 GB │
+│ llamacpp-iq3s-2gpu-dio │ warm │  13.6 │        0.8 │ 14.4 │          52.1 GB │
+└────────────────────────┴──────┴───────┴────────────┴──────┴──────────────────┘
+2026-10-20 09:53:58 start asr4u-backend-1
+2026-10-20 09:54:05 healthy
