@@ -135,3 +135,12 @@ def test_device_busy_reasons_detects_holders(tmp_path: Path) -> None:
 
 def test_device_busy_reasons_missing_device(tmp_path: Path) -> None:
     assert device_busy_reasons(Path("/dev/nvme9n1"), tmp_path, "")
+
+
+def test_build_command_separate_files_and_end_fsync() -> None:
+    t = Target("fs", "file", Path("/scratch/fio-testfile"))
+    cmd = build_command(spec(rw="write", numjobs=4, separate_files=True, end_fsync=True), [(t, 0)])
+    # ジョブごとの別ファイル: --filename ではなく --directory と --filename_format を使い、範囲はずらさない
+    assert "--directory=/scratch" in cmd and "--filename_format=fio-testfile.$jobnum" in cmd
+    assert not any(a.startswith("--filename=") or a.startswith("--offset_increment") for a in cmd)
+    assert "--end_fsync=1" in cmd

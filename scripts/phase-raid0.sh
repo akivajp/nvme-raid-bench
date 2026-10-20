@@ -19,4 +19,5 @@ fi
 bench --suite cdm --target fs
 # GGUF は balance で再配置されたものを読む
 bench --suite coldread --target gguf
+bench --suite coldread_parallel --target gguf
 uv run nvme-bench compare runs/single "runs/${LABEL}"

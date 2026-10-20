@@ -91,6 +91,7 @@ def make_target(name: str, d: dict[str, Any]) -> Target:
         kind=d["kind"],
         path=Path(os.path.expanduser(d["path"])),
         readonly=bool(d.get("readonly", False)),
+        nocow=bool(d.get("nocow", False)),
     )
 
 
@@ -136,9 +137,19 @@ def prepare_file_target(target: Target, size_bytes: int) -> None:
     """
     parent = target.path.parent
     if not parent.exists():
-        # snapper のスナップショットに含まれないよう、入れ子のサブボリュームにする (root 不要)
-        run_cmd(["btrfs", "subvolume", "create", str(parent)])
-        log.info("サブボリュームを作成しました: %s", parent)
+        if target.nocow:
+            # 空のディレクトリに +C を付けると、中に作るファイルが NOCOW (= NODATASUM) を引き継ぐ。
+            # 既にデータのあるファイルには付けられないため、ディレクトリで指定する
+            parent.mkdir(parents=True)
+            run_cmd(["chattr", "+C", str(parent)])
+            log.info("nocow のディレクトリを作成しました: %s", parent)
+        else:
+            # snapper のスナップショットに含まれないよう、入れ子のサブボリュームにする (root 不要)
+            run_cmd(["btrfs", "subvolume", "create", str(parent)])
+            log.info("サブボリュームを作成しました: %s", parent)
+    # ジョブごとの別ファイル (separate_files) の残りも消す
+    for f in parent.glob(f"{target.path.name}.*"):
+        f.unlink()
     if target.path.exists():
         target.path.unlink()
     log.info("計測用ファイルを作成します: %s (%.1f GiB)", target.path, size_bytes / 1024**3)
@@ -257,7 +268,9 @@ def run_suite(args: argparse.Namespace) -> None:
 
             thermal_before = smart_thermal_all(ctrls)
             with TempMonitor(float(defaults.get("temp_interval", 1.0))) as mon:
+                t0 = time.monotonic()
                 stdout = run_cmd(cmd, sudo=need_sudo)
+                elapsed = time.monotonic() - t0  # fio の起動や end_fsync も含めた実時間
             thermal_after = smart_thermal_all(ctrls)
 
             raw = json.loads(stdout[stdout.index("{") :])  # fio は JSON の前に警告を出すことがある
@@ -277,6 +290,9 @@ def run_suite(args: argparse.Namespace) -> None:
                 "lat_mean_us": res.lat_mean_us,
                 "lat_p99_us": res.lat_p99_us,
                 "wall_s": res.wall_seconds,
+                "elapsed_s": elapsed,
+                "io_bytes": sum(j.io_bytes for j in res.jobs),
+                "dirty_wb_max_mib": mon.max_dirty_wb_mib,
                 "jobs": [vars(j) for j in res.jobs],
                 "temp_max": mon.max_temps,
                 "thermal_before": thermal_before,
@@ -289,9 +305,9 @@ def run_suite(args: argparse.Namespace) -> None:
 
             temps = " ".join(f"{k}={v:.0f}℃" for k, v in sorted(mon.max_temps.items()))
             log.info(
-                "%s %s r%d: %s, %s IOPS, 平均 %.0f μs, p99 %.0f μs, %.1f 秒 (最高温度 %s)",
+                "%s %s r%d: %s, %s IOPS, 平均 %.0f μs, p99 %.0f μs, %.1f 秒 (実時間 %.1f 秒, Dirty+Writeback 最大 %.0f MiB, 最高温度 %s)",
                 names, spec.name, rep + 1, fmt_bw(res.bw_bytes), f"{res.iops:,.0f}",
-                res.lat_mean_us, res.lat_p99_us, res.wall_seconds, temps,
+                res.lat_mean_us, res.lat_p99_us, res.wall_seconds, elapsed, mon.max_dirty_wb_mib, temps,
             )
             # スロットリングの累計回数が増えていたら警告する
             for c in ctrls:

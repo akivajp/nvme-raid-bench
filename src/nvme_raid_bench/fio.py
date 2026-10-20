@@ -32,6 +32,7 @@ class Target:
     kind: str  # "file" | "device"
     path: Path
     readonly: bool = False
+    nocow: bool = False  # 置き場所のディレクトリに chattr +C を付ける (btrfs の CoW とデータのチェックサムを無効にする)
 
     @property
     def is_device(self) -> bool:
@@ -59,6 +60,8 @@ class TestSpec:
     repeats: int = 3
     drop_caches: bool = False
     bw_log: bool = False
+    separate_files: bool = False  # numjobs > 1 のとき、1つのファイルを分け合わずジョブごとに別ファイルへ読み書きする
+    end_fsync: bool = False  # 終了時に fsync する (バッファ書き込みをディスクに届くまで測る)
 
     @property
     def is_write(self) -> bool:
@@ -89,9 +92,14 @@ def job_size(spec: TestSpec, target_bytes: int) -> int:
 def build_job_args(spec: TestSpec, target: Target, target_bytes: int) -> list[str]:
     """1つの対象に対する fio のジョブ引数 (--name 以降) を作る。"""
     per_job = job_size(spec, target_bytes)
+    if spec.separate_files and target.kind == "file":
+        # ジョブごとに <ファイル名>.<ジョブ番号> という別ファイルを使う (btrfs はファイル単位でロックや書き出しが直列になるため、その影響を見る)
+        where = [f"--directory={target.path.parent}", f"--filename_format={target.path.name}.$jobnum"]
+    else:
+        where = [f"--filename={target.path}"]
     args = [
         f"--name={target.name}",
-        f"--filename={target.path}",
+        *where,
         f"--rw={spec.rw}",
         f"--bs={spec.bs}",
         f"--iodepth={spec.iodepth}",
@@ -100,9 +108,11 @@ def build_job_args(spec: TestSpec, target: Target, target_bytes: int) -> list[st
         f"--direct={spec.direct}",
         f"--size={per_job}",
     ]
-    if spec.numjobs > 1:
+    if spec.numjobs > 1 and not spec.separate_files:
         # ジョブごとに先頭をずらし、互いに重ならない範囲を読み書きさせる
         args.append(f"--offset_increment={per_job}")
+    if spec.end_fsync:
+        args.append("--end_fsync=1")
     if target.readonly:
         args.append("--readonly")
     return args

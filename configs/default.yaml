@@ -17,6 +17,10 @@ targets:
     kind: file
     # snapper の対象外になるよう、専用の入れ子サブボリュームに置く (run 時に無ければ作成する)
     path: ~/nvme-bench-scratch/fio-testfile
+  fs_nocow:            # fs と同じだが chattr +C のディレクトリに置く (CoW とデータのチェックサムなし = NODATASUM)
+    kind: file
+    path: ~/nvme-bench-scratch/nocow/fio-testfile
+    nocow: true
   nvme0:               # チップセット経由 (Gen4 x4、上流は他のデバイスと共有)
     kind: device
     path: /dev/nvme0n1
@@ -92,3 +96,21 @@ suites:
          ioengine: psync, direct: 0, size: full, time_based: false, drop_caches: true}
       - {name: buffered_read_1M_T8, rw: read, bs: 1m, iodepth: 1, numjobs: 8,
          ioengine: psync, direct: 0, size: full, time_based: false, drop_caches: true}
+
+  # btrfs の書き込みが遅い原因の切り分け。fs と fs_nocow で同じ計測を流して比べる。
+  # カーネル 6.6 以降の stable にも入った btrfs の変更 (968f19c5b1b7) により、データのチェックサムを持つファイルへの
+  # O_DIRECT 書き込みはバッファ書き込みにフォールバックする。計測中の Dirty + Writeback の増え方で確かめる
+  write_probe:
+    precondition: true
+    tests:
+      - {name: SEQ1M_Q32T4_read,  rw: read,  bs: 1m, iodepth: 32, numjobs: 4}
+      - {name: buffered_read_1M,  rw: read,  bs: 1m, iodepth: 1,  numjobs: 1,
+         ioengine: psync, direct: 0, size: full, time_based: false, drop_caches: true}
+      - {name: SEQ1M_Q8T1_write,  rw: write, bs: 1m, iodepth: 8,  numjobs: 1, runtime: 10}
+      - {name: SEQ1M_Q32T4_write, rw: write, bs: 1m, iodepth: 32, numjobs: 4, runtime: 10}
+      - {name: SEQ1M_Q32T4_write_4files, rw: write, bs: 1m, iodepth: 32, numjobs: 4, runtime: 10, separate_files: true}
+      # ダウンロードやファイルのコピーに近い、普通のバッファ書き込み。fsync まで含めた実時間で見る
+      - {name: buffered_write_32g, rw: write, bs: 1m, iodepth: 1, numjobs: 1,
+         ioengine: psync, direct: 0, size: 32g, time_based: false, end_fsync: true}
+      - {name: buffered_write_32g_4files, rw: write, bs: 1m, iodepth: 1, numjobs: 4,
+         ioengine: psync, direct: 0, size: 32g, time_based: false, end_fsync: true, separate_files: true}

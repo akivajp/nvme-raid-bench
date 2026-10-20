@@ -22,10 +22,24 @@ def nvme_hwmon_paths() -> dict[str, Path]:
     return out
 
 
-class TempMonitor:
-    """別スレッドで一定間隔ごとに全 NVMe の温度を読み、時系列と最大値を保持する。
+def dirty_writeback_mib() -> float:
+    """ページキャッシュのうち、ディスクへの書き出し待ち (Dirty) と書き出し中 (Writeback) の合計 (MiB)。
 
-    with 文で使う。抜けたときに samples (経過秒, {nvme0: ℃, ...}) と max_temps が確定する。
+    O_DIRECT の書き込み中にここが増えるなら、実際にはページキャッシュを経由している (バッファ書き込みへのフォールバック)。
+    """
+    total_kib = 0
+    with open("/proc/meminfo") as f:
+        for line in f:
+            key, _, rest = line.partition(":")
+            if key in ("Dirty", "Writeback"):
+                total_kib += int(rest.split()[0])
+    return total_kib / 1024
+
+
+class TempMonitor:
+    """別スレッドで一定間隔ごとに全 NVMe の温度とページキャッシュの書き出し待ちを読み、時系列と最大値を保持する。
+
+    with 文で使う。抜けたときに samples (経過秒, {nvme0: ℃, ..., "dirty_wb_mib": MiB}) と max_temps が確定する。
     """
 
     def __init__(self, interval: float = 1.0) -> None:
@@ -44,6 +58,7 @@ class TempMonitor:
                 temps[ctrl] = int(path.read_text()) / 1000
             except OSError:
                 pass
+        temps["dirty_wb_mib"] = dirty_writeback_mib()
         return temps
 
     def _loop(self) -> None:
@@ -68,8 +83,14 @@ class TempMonitor:
         out: dict[str, float] = {}
         for _, temps in self.samples:
             for k, v in temps.items():
-                out[k] = max(out.get(k, v), v)
+                if k.startswith("nvme"):
+                    out[k] = max(out.get(k, v), v)
         return out
+
+    @property
+    def max_dirty_wb_mib(self) -> float:
+        """計測中の Dirty + Writeback の最大値 (MiB)。"""
+        return max((t.get("dirty_wb_mib", 0.0) for _, t in self.samples), default=0.0)
 
 
 # SMART の温度関連の項目 (nvme-cli 2.x の JSON のキー名)
