@@ -1,0 +1,56 @@
+argv:
+- /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/.venv/bin/nvme-bench
+- run
+- --label
+- raid0-x4
+- --suite
+- coldread_parallel
+- --target
+- gguf
+defaults:
+  ioengine: io_uring
+  direct: 1
+  runtime: 20
+  ramp_time: 3
+  repeats: 3
+  size: 64g
+  cooldown: 5
+  temp_interval: 1.0
+suite:
+  coldread_parallel:
+    tests:
+    - name: buffered_read_1M_T2
+      rw: read
+      bs: 1m
+      iodepth: 1
+      numjobs: 2
+      ioengine: psync
+      direct: 0
+      size: full
+      time_based: false
+      drop_caches: true
+    - name: buffered_read_1M_T4
+      rw: read
+      bs: 1m
+      iodepth: 1
+      numjobs: 4
+      ioengine: psync
+      direct: 0
+      size: full
+      time_based: false
+      drop_caches: true
+    - name: buffered_read_1M_T8
+      rw: read
+      bs: 1m
+      iodepth: 1
+      numjobs: 8
+      ioengine: psync
+      direct: 0
+      size: full
+      time_based: false
+      drop_caches: true
+targets:
+  gguf:
+    kind: file
+    path: ~/llm-lab/gguf/Qwen3.8-Flash-Next-GSQ-RCO/IQ3_S/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf
+    readonly: true
