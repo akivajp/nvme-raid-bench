@@ -1,0 +1,2 @@
+---------------------- ~/nvme-bench-scratch/dio-check: O_DIRECT で 8192 MiB 書き込み → Dirty にされたページ 8200 MiB 分
+---------------C------ ~/nvme-bench-scratch/nocow/dio-check: O_DIRECT で 8192 MiB 書き込み → Dirty にされたページ 0 MiB 分

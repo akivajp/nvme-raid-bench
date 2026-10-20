@@ -102,6 +102,54 @@ uv run nvme-bench compare runs/single runs/raid0
 fio の報告は 28GB/s のように物理的にありえない値になるが、実際にディスクから読むのは 1/numjobs。
 [scripts/verify_mmap.py](scripts/verify_mmap.py) で `/proc/diskstats` と突き合わせて確認した ([runs/raid0/verify-mmap.log](runs/raid0/verify-mmap.log))。
 
+### btrfs RAID0、M2_2 を x4 に (`runs/raid0-x4/`)
+
+BIOS で USB4 を無効にし、M2_2 を Gen4 x4 にした後、同じ条件で計測した (再起動で NVMe の番号が入れ替わったため、env.md のシリアル番号以外の情報で対応を取っている)。
+
+| test | 単体 | RAID0 (x2 あり) | RAID0 (全台 x4) | 単体比 |
+|---|---:|---:|---:|---:|
+| SEQ1M Q32T4 read | 6,239 MB/s | 10,630 MB/s | **18,771 MB/s** | ×3.01 |
+| SEQ1M Q8T1 read | 6,756 MB/s | 9,733 MB/s | 11,699 MB/s | ×1.73 |
+| SEQ1M Q1T1 read | 4,002 MB/s | 6,581 MB/s | 9,863 MB/s | ×2.46 |
+| SEQ1M Q8T1 write | 2,012 MB/s | 1,907 MB/s | 2,667 MB/s | ×1.33 |
+| GGUF 54.8GB: O_DIRECT Q32T4 | 12.5 秒 | 5.4 秒 | **4.3 秒** | ×2.94 |
+| GGUF 54.8GB: read() 1スレッド | 10.6 秒 | 9.9 秒 | 8.8 秒 | ×1.21 |
+| GGUF 54.8GB: mmap 1スレッド | 11.1 秒 | 11.2 秒 | 9.9 秒 | ×1.12 |
+| GGUF 54.8GB: read() 4スレッド | - | 6.4 秒 | 4.6 秒 | |
+
+- シーケンシャル読み込みは 3台 × 6.2GB/s ≈ 18.7GB/s に到達した。M2_2 の最高温度は 66°C → 74°C に上がった (スロットリングは無し)。
+
+### btrfs の書き込みが遅い原因 (`runs/raid0-x4-write/`)
+
+**データのチェックサムを持つファイルへの O_DIRECT 書き込みは、btrfs がバッファ書き込みにフォールバックする**
+(upstream commit `968f19c5b1b7` "btrfs: always fallback to buffered write if the inode requires checksum"。6.6 / 6.12 の stable にもバックポート)。
+CrystalDiskMark 相当の書き込み (O_DIRECT) が約 2GB/s に留まるのはこのため。
+
+[scripts/check-dio-fallback.sh](scripts/check-dio-fallback.sh) で、O_DIRECT で 8GiB 書く間に Dirty にされたページを数えると:
+
+| ファイル | Dirty にされたページ |
+|---|---:|
+| 通常 (データのチェックサムあり) | 8,200 MiB 分 (= 全量がページキャッシュ経由) |
+| `chattr +C` (NOCOW = NODATASUM) | 0 MiB |
+
+同じ RAID0 上で、チェックサムあり (fs) となし (fs_nocow) を比べた結果 (MB/s、3回の中央値):
+
+| test | fs | fs_nocow | 倍率 |
+|---|---:|---:|---:|
+| SEQ1M Q8T1 write (O_DIRECT) | 2,632 | 12,584 | ×4.8 |
+| SEQ1M Q32T4 write (O_DIRECT) | 2,433 | 13,444 | ×5.5 |
+| SEQ1M Q32T4 write、4ファイル (O_DIRECT) | 3,218 | 11,974 | ×3.7 |
+| バッファ書き込み 32GiB + fsync、1ファイル | 3,867 | 4,071 | ×1.05 |
+| バッファ書き込み 32GiB + fsync、4ファイル | 7,428 | 8,780 | ×1.18 |
+| SEQ1M Q32T4 read (O_DIRECT) | 18,507 | 17,656 | ×0.95 |
+| read() 1スレッド (キャッシュなし) | 6,537 | 6,909 | ×1.06 |
+
+- 普通のアプリ (ダウンロード・コピー) が使うバッファ書き込みでは、チェックサムの有無の差は 5〜18% と小さい。
+  1ファイルの書き込みは書き手1本の CPU (100%) が律速で、ファイルを分けて並列にすると伸びる。
+- O_DIRECT で書くアプリ (DB、`cache=none` の VM イメージなど) は、置き場所のディレクトリに `chattr +C` を付けると約5倍になる。
+  代わりにデータのチェックサム (破損の検出)・圧縮・reflink が効かなくなる。
+- フォールバックせずにチェックサムを保つ修正 (`IOMAP_DIO_BOUNCE`、ゼロコピーの約95%) は 2026-06 時点で btrfs 側が未マージ。
+
 ## ライセンス
 
 MIT

@@ -1,0 +1,81 @@
+argv:
+- /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/.venv/bin/nvme-bench
+- run
+- --label
+- raid0-x4-write
+- --suite
+- write_probe
+- --target
+- fs
+defaults:
+  ioengine: io_uring
+  direct: 1
+  runtime: 20
+  ramp_time: 3
+  repeats: 3
+  size: 64g
+  cooldown: 5
+  temp_interval: 1.0
+suite:
+  write_probe:
+    precondition: true
+    tests:
+    - name: SEQ1M_Q32T4_read
+      rw: read
+      bs: 1m
+      iodepth: 32
+      numjobs: 4
+    - name: buffered_read_1M
+      rw: read
+      bs: 1m
+      iodepth: 1
+      numjobs: 1
+      ioengine: psync
+      direct: 0
+      size: full
+      time_based: false
+      drop_caches: true
+    - name: SEQ1M_Q8T1_write
+      rw: write
+      bs: 1m
+      iodepth: 8
+      numjobs: 1
+      runtime: 10
+    - name: SEQ1M_Q32T4_write
+      rw: write
+      bs: 1m
+      iodepth: 32
+      numjobs: 4
+      runtime: 10
+    - name: SEQ1M_Q32T4_write_4files
+      rw: write
+      bs: 1m
+      iodepth: 32
+      numjobs: 4
+      runtime: 10
+      separate_files: true
+    - name: buffered_write_32g
+      rw: write
+      bs: 1m
+      iodepth: 1
+      numjobs: 1
+      ioengine: psync
+      direct: 0
+      size: 32g
+      time_based: false
+      end_fsync: true
+    - name: buffered_write_32g_4files
+      rw: write
+      bs: 1m
+      iodepth: 1
+      numjobs: 4
+      ioengine: psync
+      direct: 0
+      size: 32g
+      time_based: false
+      end_fsync: true
+      separate_files: true
+targets:
+  fs:
+    kind: file
+    path: ~/nvme-bench-scratch/fio-testfile
