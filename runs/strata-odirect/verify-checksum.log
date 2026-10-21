@@ -1,0 +1,3 @@
+== upstream : strata generate: expert arena read through the file cache (buffered (not Windows)) strata generate: expert arena checksum 8ae1446c68dc969b (46.84 GiB) 
+== odirect STRATA_UNBUFFERED_LOAD=1: strata generate: expert arena read unbuffered (STRATA_UNBUFFERED_LOAD=1) strata generate: expert arena checksum 8ae1446c68dc969b (46.84 GiB) 
+2026-10-22 01:10:02 healthy

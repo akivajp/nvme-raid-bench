@@ -1,0 +1,19 @@
+# 2026-10-22 00:56:30 7.0.0-38-generic gcc 15
+mode=fread  threads= 1 cold bytes=32.0GiB time=6.78s rate=4.72 GiB/s
+mode=fread  threads= 1 warm bytes=32.0GiB time=2.67s rate=11.97 GiB/s
+mode=fread  threads= 6 cold bytes=32.0GiB time=5.44s rate=5.88 GiB/s
+mode=fread  threads= 6 warm bytes=32.0GiB time=3.18s rate=10.06 GiB/s
+mode=fread  threads=16 cold bytes=32.0GiB time=5.43s rate=5.90 GiB/s
+mode=fread  threads=16 warm bytes=32.0GiB time=2.86s rate=11.18 GiB/s
+mode=pread  threads= 1 cold bytes=32.0GiB time=5.77s rate=5.55 GiB/s
+mode=pread  threads= 1 warm bytes=32.0GiB time=2.10s rate=15.23 GiB/s
+mode=pread  threads= 6 cold bytes=32.0GiB time=3.79s rate=8.45 GiB/s
+mode=pread  threads= 6 warm bytes=32.0GiB time=1.79s rate=17.92 GiB/s
+mode=pread  threads=16 cold bytes=32.0GiB time=4.11s rate=7.79 GiB/s
+mode=pread  threads=16 warm bytes=32.0GiB time=1.80s rate=17.81 GiB/s
+mode=direct threads= 1 cold bytes=32.0GiB time=2.51s rate=12.75 GiB/s
+mode=direct threads= 6 cold bytes=32.0GiB time=2.22s rate=14.42 GiB/s
+mode=direct threads=16 cold bytes=32.0GiB time=2.28s rate=14.01 GiB/s
+mode=directbuf threads= 1 cold bytes=32.0GiB time=4.34s rate=7.37 GiB/s
+mode=directbuf threads= 6 cold bytes=32.0GiB time=2.71s rate=11.80 GiB/s
+mode=directbuf threads=16 cold bytes=32.0GiB time=2.84s rate=11.25 GiB/s

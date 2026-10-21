@@ -7,7 +7,7 @@
             (mmap はページを触るまで読まないので、ロードの残りがここに出る)
   total_s   ready_s + first_s (= 使い始められるまでの時間)
   disk_gb   その間にストレージ (RAID0 の3台) から読んだ量
-cold はページキャッシュを捨ててから起動 (要: sudo -n sysctl -w vm.drop_caches=3)、warm は直前の読み込みが残った状態。
+cold はページキャッシュを捨ててから起動 (sudo -n が使えれば drop_caches、使えなければ対象ファイルだけ fadvise で)、warm は直前の読み込みが残った状態。
 
 usage: uv run python scripts/model_load.py --label model-load [--only strata] [--cold 3] [--warm 1]
 """
@@ -37,7 +37,9 @@ log = logging.getLogger("model-load")
 REPO = Path(__file__).resolve().parents[1]
 LLM_BENCH = Path.home() / "ghq/github.com/akivajp/local-llm-bench/scripts"
 GGUF_IQ3S = "Qwen3.8-Flash-Next-GSQ-RCO/IQ3_S/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00001-of-00002.gguf"
-RAID_DEVS = {"nvme0n1", "nvme1n1", "nvme2n1p1"}  # 2026-10-20 の再起動後の名前 (env.md を参照)
+# ルートの btrfs を構成するデバイス (nvme0n1 等)。再起動で番号が入れ替わることがあるので、毎回 sysfs から取る
+RAID_DEVS = {d.name for d in Path("/sys/fs/btrfs").glob("*/devices/*")
+             if Path("/sys/fs/btrfs", d.parent.parent.name, "devices").is_dir()}
 
 
 @dataclass
@@ -62,10 +64,48 @@ def servers() -> list[Server]:
         # 読み込みのスレッドを 16 本以上にする (Strata の既定では Windows 以外は常にバッファ読み込みで、スレッドは最大 6)
         Server("strata-iq3s-4090-unbuf", [str(LLM_BENCH / "strata.sh"), "up", "GPU=0", "STRATA_UNBUFFERED_LOAD=1"],
                [str(LLM_BENCH / "strata.sh"), "down"], "http://127.0.0.1:18080", strata_env),
+        # Linux の O_DIRECT 読み込みを足したパッチ版 (llmb-strata:odirect)。データは本家と共有 (docker-data-odirect はリンク)
+        Server("strata-odirect-iq3s-4090-direct", [str(LLM_BENCH / "strata.sh"), "up", "GPU=0", "STRATA_UNBUFFERED_LOAD=1"],
+               [str(LLM_BENCH / "strata.sh"), "down"], "http://127.0.0.1:18080", {**strata_env, "STRATA_VARIANT": "odirect"}),
+        Server("strata-odirect-iq3s-4090-buffered", [str(LLM_BENCH / "strata.sh"), "up", "GPU=0"],
+               [str(LLM_BENCH / "strata.sh"), "down"], "http://127.0.0.1:18080", {**strata_env, "STRATA_VARIANT": "odirect"}),
+        # 読み込んだ arena のチェックサムを出す (正しさの確認用。全体のハッシュ計算で起動が遅くなるので時間は比べない)
+        Server("verify-strata-iq3s-4090", [str(LLM_BENCH / "strata.sh"), "up", "GPU=0", "STRATA_VERIFY_ARENA=1"],
+               [str(LLM_BENCH / "strata.sh"), "down"], "http://127.0.0.1:18080", strata_env),
+        Server("verify-strata-odirect-iq3s-4090-direct",
+               [str(LLM_BENCH / "strata.sh"), "up", "GPU=0", "STRATA_UNBUFFERED_LOAD=1", "STRATA_VERIFY_ARENA=1"],
+               [str(LLM_BENCH / "strata.sh"), "down"], "http://127.0.0.1:18080", {**strata_env, "STRATA_VARIANT": "odirect"}),
         Server("llamacpp-iq3s-2gpu-mmap", lc + ["--load-mode", "mmap"], lc_down, "http://127.0.0.1:18081"),
         Server("llamacpp-iq3s-2gpu-none", lc + ["--load-mode", "none"], lc_down, "http://127.0.0.1:18081"),
         Server("llamacpp-iq3s-2gpu-dio", lc + ["--load-mode", "dio"], lc_down, "http://127.0.0.1:18081"),
     ]
+
+
+# cold の計測で捨てるページキャッシュ (モデルと Strata の変換済みデータ)
+CACHE_DIRS = [
+    Path.home() / "llm-lab/gguf/Qwen3.8-Flash-Next-GSQ-RCO/IQ3_S",
+    Path.home() / "llm-lab/strata/docker-data-upstream",
+]
+
+
+def drop_file_cache(dirs: list[Path]) -> None:
+    """指定ディレクトリ以下のファイルのページキャッシュを捨てる (posix_fadvise DONTNEED。root 不要)。
+
+    sudo が使えるなら vm.drop_caches=3 (全体) を使う。使えなければ対象のファイルだけを捨てる。
+    """
+    if subprocess.run(["sudo", "-n", "sysctl", "-w", "vm.drop_caches=3"], capture_output=True).returncode == 0:
+        return
+    for d in dirs:
+        for f in d.rglob("*"):
+            if f.is_file() and not f.is_symlink():
+                try:
+                    fd = os.open(f, os.O_RDONLY)
+                except OSError:
+                    continue  # コンテナ内の root が作った読めないファイルは対象外 (小さい設定ファイル)
+                try:
+                    os.posix_fadvise(fd, 0, 0, os.POSIX_FADV_DONTNEED)
+                finally:
+                    os.close(fd)
 
 
 def disk_read_bytes() -> int:
@@ -151,6 +191,7 @@ def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--label", default="model-load", help="保存先 runs/<label>/ の名前")
     p.add_argument("--only", action="append", help="構成名に含まれる文字列で絞る (複数指定可)")
+    p.add_argument("--exact", action="store_true", help="--only を部分一致ではなく完全一致で使う")
     p.add_argument("--cold", type=int, default=3, help="ページキャッシュを捨ててからの計測回数")
     p.add_argument("--warm", type=int, default=1, help="キャッシュが残った状態での計測回数 (cold の後に流す)")
     p.add_argument("--timeout", type=float, default=900, help="起動待ちの上限 (秒)")
@@ -163,14 +204,19 @@ def main() -> None:
         RichHandler(console=console, show_path=False),
         _file_handler(out / "model_load.log"),
     ])
-    targets = [s for s in servers() if not args.only or any(o in s.name for o in args.only)]
+    def wanted(name: str) -> bool:
+        if not args.only:
+            return True
+        return name in args.only if args.exact else any(o in name for o in args.only)
+
+    targets = [s for s in servers() if wanted(s.name)]
     rows: list[dict[str, object]] = []
     for s in targets:
         for mode in ["cold"] * args.cold + ["warm"] * args.warm:
             run(s.down, s.env)  # 前の構成が残っていれば止める
             if mode == "cold":
                 os.sync()
-                subprocess.run(["sudo", "-n", "sysctl", "-w", "vm.drop_caches=3"], check=True, capture_output=True)
+                drop_file_cache(CACHE_DIRS)
             tracer = ReadTracer()
             if args.trace:
                 tracer.__enter__()

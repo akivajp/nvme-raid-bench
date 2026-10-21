@@ -1,0 +1,2 @@
+2026-10-22 01:06:14,406 INFO verify-strata-iq3s-4090 cold: ready 50.1 秒 + 最初の応答 0.5 秒 = 50.6 秒 (ディスクから 37.5 GB)
+2026-10-22 01:07:04,069 INFO verify-strata-odirect-iq3s-4090-direct cold: ready 46.6 秒 + 最初の応答 0.5 秒 = 47.0 秒 (ディスクから 37.2 GB)
