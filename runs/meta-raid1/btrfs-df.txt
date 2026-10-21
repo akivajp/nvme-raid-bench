@@ -1,0 +1,4 @@
+Data, RAID0: total=705.00GiB, used=681.74GiB
+System, RAID1: total=32.00MiB, used=80.00KiB
+Metadata, RAID1: total=8.00GiB, used=5.52GiB
+GlobalReserve, single: total=512.00MiB, used=0.00B

@@ -1,0 +1,3 @@
+filecreate r1: 200000 files, 17.77 s (sync included)
+filecreate r2: 200000 files, 19.50 s (sync included)
+filecreate r3: 200000 files, 19.05 s (sync included)

@@ -1,0 +1,22 @@
+2026-10-22 02:23:11,826 INFO 設定: suite=cdm 対象=['fs'] defaults={'ioengine': 'io_uring', 'direct': 1, 'runtime': 20, 'ramp_time': 3, 'repeats': 3, 'size': '64g', 'cooldown': 5, 'temp_interval': 1.0}
+2026-10-22 02:23:11,828 INFO 計測環境を記録します: /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/runs/meta-raid1c3/env.md
+2026-10-22 02:23:11,986 INFO 計測用ファイルを作成します: /home/akiva/nvme-bench-scratch/fio-testfile (64.0 GiB)
+2026-10-22 02:23:53,284 INFO fs SEQ1M_Q8T1_write r1: 2,655 MB/s, 2,531 IOPS, 平均 3173 μs, p99 4293 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 38 MiB, 最高温度 nvme0=62℃ nvme1=49℃ nvme2=63℃)
+2026-10-22 02:24:11,893 INFO fs SEQ1M_Q8T1_write r2: 2,524 MB/s, 2,406 IOPS, 平均 3321 μs, p99 5014 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 45 MiB, 最高温度 nvme0=63℃ nvme1=49℃ nvme2=63℃)
+2026-10-22 02:24:30,513 INFO fs SEQ1M_Q8T1_write r3: 2,598 MB/s, 2,477 IOPS, 平均 3233 μs, p99 4882 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 38 MiB, 最高温度 nvme0=63℃ nvme1=49℃ nvme2=63℃)
+2026-10-22 02:24:49,125 INFO fs SEQ1M_Q1T1_write r1: 2,139 MB/s, 2,040 IOPS, 平均 487 μs, p99 1581 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 17 MiB, 最高温度 nvme0=63℃ nvme1=49℃ nvme2=63℃)
+2026-10-22 02:25:07,736 INFO fs SEQ1M_Q1T1_write r2: 2,572 MB/s, 2,453 IOPS, 平均 405 μs, p99 436 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 43 MiB, 最高温度 nvme0=63℃ nvme1=49℃ nvme2=64℃)
+2026-10-22 02:25:26,357 INFO fs SEQ1M_Q1T1_write r3: 1,425 MB/s, 1,359 IOPS, 平均 732 μs, p99 1827 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 23 MiB, 最高温度 nvme0=63℃ nvme1=49℃ nvme2=64℃)
+2026-10-22 02:25:44,965 INFO fs RND4K_Q32T1_write r1: 166 MB/s, 40,543 IOPS, 平均 789 μs, p99 1028 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 117 MiB, 最高温度 nvme0=63℃ nvme1=49℃ nvme2=63℃)
+2026-10-22 02:26:03,571 INFO fs RND4K_Q32T1_write r2: 199 MB/s, 48,630 IOPS, 平均 657 μs, p99 889 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 167 MiB, 最高温度 nvme0=62℃ nvme1=48℃ nvme2=63℃)
+2026-10-22 02:26:22,182 INFO fs RND4K_Q32T1_write r3: 215 MB/s, 52,370 IOPS, 平均 610 μs, p99 766 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 176 MiB, 最高温度 nvme0=62℃ nvme1=48℃ nvme2=63℃)
+2026-10-22 02:26:40,807 INFO fs RND4K_Q1T1_write r1: 200 MB/s, 48,822 IOPS, 平均 20 μs, p99 26 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 185 MiB, 最高温度 nvme0=62℃ nvme1=48℃ nvme2=63℃)
+2026-10-22 02:26:59,431 INFO fs RND4K_Q1T1_write r2: 200 MB/s, 48,749 IOPS, 平均 20 μs, p99 25 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 177 MiB, 最高温度 nvme0=62℃ nvme1=48℃ nvme2=63℃)
+2026-10-22 02:27:18,045 INFO fs RND4K_Q1T1_write r3: 197 MB/s, 48,081 IOPS, 平均 20 μs, p99 33 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 176 MiB, 最高温度 nvme0=62℃ nvme1=48℃ nvme2=63℃)
+2026-10-22 02:27:36,656 INFO fs SEQ1M_Q32T4_write r1: 3,329 MB/s, 3,162 IOPS, 平均 40373 μs, p99 107479 μs, 10.1 秒 (実時間 13.5 秒, Dirty+Writeback 最大 165 MiB, 最高温度 nvme0=63℃ nvme1=49℃ nvme2=64℃)
+2026-10-22 02:27:55,300 INFO fs SEQ1M_Q32T4_write r2: 3,318 MB/s, 3,152 IOPS, 平均 40639 μs, p99 108528 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 28 MiB, 最高温度 nvme0=64℃ nvme1=50℃ nvme2=65℃)
+2026-10-22 02:28:13,921 INFO fs SEQ1M_Q32T4_write r3: 3,451 MB/s, 3,279 IOPS, 平均 38939 μs, p99 104333 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 66 MiB, 最高温度 nvme0=64℃ nvme1=50℃ nvme2=65℃)
+2026-10-22 02:28:32,548 INFO fs RND4K_Q32T8_write r1: 373 MB/s, 90,988 IOPS, 平均 2828 μs, p99 6259 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 386 MiB, 最高温度 nvme0=64℃ nvme1=50℃ nvme2=65℃)
+2026-10-22 02:28:51,172 INFO fs RND4K_Q32T8_write r2: 542 MB/s, 132,203 IOPS, 平均 1939 μs, p99 2572 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 454 MiB, 最高温度 nvme0=63℃ nvme1=49℃ nvme2=64℃)
+2026-10-22 02:29:09,797 INFO fs RND4K_Q32T8_write r3: 584 MB/s, 142,576 IOPS, 平均 1804 μs, p99 2089 μs, 10.0 秒 (実時間 13.5 秒, Dirty+Writeback 最大 534 MiB, 最高温度 nvme0=63℃ nvme1=49℃ nvme2=64℃)
+2026-10-22 02:29:14,799 INFO 完了: /home/akiva/ghq/github.com/akivajp/nvme-raid-bench/runs/meta-raid1c3/results.jsonl
